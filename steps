@@ -1,2 +1,8 @@
-❯ export GOOGLE_CLOUD_PROJECT="project-12315"
-❯ export GOOGLE_API_KEY="AIzaSyDEwTDG5ul6RGCoVIamkn7FtCfm4XFOAX8"
+pip install google-genai
+pip install elevenlabs
+pip install rapidfuzz
+pip install google-cloud-speech
+sudo apt install ffmpeg //wsl
+GOOGLE_CLOUD_PROJECT="project-12315"
+GOOGLE_API_KEY="AIzaSyDEwTDG5ul6RGCoVIamkn7FtCfm4XFOAX8"
+去google啟用speech-to-text, genai
