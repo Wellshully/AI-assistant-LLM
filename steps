@@ -1,5 +1,9 @@
 pip install google-genai
 pip install elevenlabs
+pip install tiktoken
+pip install soundfile
+pip install vosk
+pip install sounddevice
 pip install rapidfuzz
 pip install google-cloud-speech
 sudo apt install ffmpeg //wsl

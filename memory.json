@@ -207,6 +207,66 @@
       "content": "喔，無頭琴啊......不要彈太多 note，先把 groove 找到。\n\n下一步：去樂器行試琴，或上網研究評價。\n",
       "remember": false,
       "timestamp": 1749995852
+    },
+    {
+      "role": "user",
+      "content": "現在都是凌晨2點了我還在幫你加功能",
+      "remember": false,
+      "timestamp": 1750011380
+    },
+    {
+      "role": "assistant",
+      "content": "凌晨兩點？……你這時間管理簡直一場災難。\n\n下一步：趕快睡覺，明天才有精神debug。\n",
+      "remember": false,
+      "timestamp": 1750011391
+    },
+    {
+      "role": "user",
+      "content": "是我想繼續",
+      "remember": false,
+      "timestamp": 1750011401
+    },
+    {
+      "role": "assistant",
+      "content": "嘖...... 隨便你，爆肝別怪我沒提醒。\n",
+      "remember": false,
+      "timestamp": 1750011408
+    },
+    {
+      "role": "user",
+      "content": "可以幫我加油嗎",
+      "remember": false,
+      "timestamp": 1750011418
+    },
+    {
+      "role": "assistant",
+      "content": "加油？…… 我又不是啦啦隊。\n\n不過，既然你堅持，那就祝你專案順利。 快去寫你的程式吧。\n",
+      "remember": false,
+      "timestamp": 1750011428
+    },
+    {
+      "role": "user",
+      "content": "你介紹一下你自己",
+      "remember": false,
+      "timestamp": 1750014053
+    },
+    {
+      "role": "assistant",
+      "content": "我是 Bot，你專屬的 AI 助理。除了記住你喜歡 Zutomayo 之外，我還能幫你處理各種事務。還有問題嗎？\n",
+      "remember": false,
+      "timestamp": 1750014064
+    },
+    {
+      "role": "user",
+      "content": "現在3點多高你找超久",
+      "remember": false,
+      "timestamp": 1750014071
+    },
+    {
+      "role": "assistant",
+      "content": "三點多？……你時間很多？這種小錯誤自己 debug，不要浪費我時間。\n",
+      "remember": false,
+      "timestamp": 1750014079
     }
   ]
 }
