@@ -9,6 +9,8 @@ REMOTE_USER = "welly"
 REMOTE_HOST = "192.168.66.14"
 BOT_MAC = "EE:2E:05:86:36:8D"
 WRITE_CHAR_UUID = "cba20002-224d-11e6-9fb8-0002a5d5c51b"
+
+
 def ssh_exec(bat_filename: str):
     cmd = f'ssh {REMOTE_USER}@{REMOTE_HOST} "{bat_filename}"'
     subprocess.run(cmd, shell=True)
@@ -32,7 +34,6 @@ def open_mail():
 
 def do_light(on: bool):
     print("[ACTION]", "開燈" if on else "關燈")
-    speak("開燈。" if on else "關燈。")
 
     async def ble_send():
         try:
@@ -45,7 +46,7 @@ def do_light(on: bool):
             speak("機器人失聯啦你去檢查一下")
 
     threading.Thread(target=lambda: asyncio.run(ble_send()), daemon=True).start()
-
+    speak("開燈。" if on else "關燈。")
 
 
 def chat_mode():

@@ -6,18 +6,23 @@ from google.cloud import speech_v1 as speech
 import action
 
 # ---------- 基本常數 ----------
-DEVICE_ID = 45
-SAMPLE_RATE = 48000
+DEVICE_ID = 5
+SAMPLE_RATE = 16000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 CMD_MAP = {
     "hey turn off light": "off_light",
-    "hey light of": "off_light",
     "hey like off": "off_light",
-    "hey light off": "off_light",
+    "hey light of": "off_light",
+    "hey night of": "off_light",
+    "hey night oof": "off_light",
     "hey laid off": "off_light",
+    "hey light off": "off_light",
+    "hey lied off": "off_light",
     "hey turn on light": "on_light",
     "hey like oh": "on_light",
+    "hey lied on": "on_light",
     "hey light on": "on_light",
+    "hey night on": "on_light",
     "hey like on": "on_light",
     "hey shut down my pc": "pc_off",
     "hey listen": "llm",
