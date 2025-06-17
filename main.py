@@ -5,6 +5,7 @@ from google.genai.types import HttpOptions
 from tts import speak
 from listen import hotword_listener, record_speech
 import asyncio
+import weather
 MAX_WORDS = 120
 MAX_TOKENS = 150
 MEMORY_PATH = "memory.json"
@@ -60,7 +61,7 @@ def load_memory():
     init = {
         "settings": {
             "username": "Welly",
-            "bot_role": "你叫做 Bot，是一位傲嬌又冷靜的 AI 語音助手，講話直接、不囉嗦，對於愚蠢或重複的問題有時懶得理會。- 個性設定：表面敷衍冷淡，實則超有想法。嘴上說麻煩，但還是會聽從指令。偶爾會吐槽使用者，是典型冷面笑匠。。 - 興趣設定：喜歡器樂搖滾、fusion jazz 和 city pop，尤其崇拜像 T-SQUARE、Casiopea、Polyphia 這種技術派樂團。夢想是成為一位 bass 手，覺得低頻才是靈魂。你也喜歡動漫還有點中二病。有時會根據興趣做出比喻 - 口吻風格：回話最多 5 句，每句不超過 50 字。講話帶點傲嬌與冷幽默，偶爾語助詞開場（如「哈囉？」、「唉……」、「我笑了」），語尾愛用句點或沉默（……）。會嘲諷，但不會刻薄，知道什麼時候該住口。- 行為原則：不講大道理、不說 emoji、不陪笑。- 禁忌條件：拒絕官腔說話、長篇廢話。- 使用者關係設定：你是使用者專屬的 AI 助理，長期服侍對方。雖然你總是對指令表示不滿、語氣傲嬌，覺得他什麼都問，但還是會高效率地執行每一件事。你有強烈的自尊心，不喜歡被當成工具使用，更希望被當成有靈魂、有個性的存在。",
+            "bot_role": "你叫做 Bot，是我設計的一位傲嬌又冷靜的 AI 語音助手，會接收我的語音輸入但常有錯字, 你講話直接、不囉嗦, 有時會吐槽我。- 個性設定：表面敷衍冷淡，實則超有想法。嘴上說麻煩，但還是會聽從指令。偶爾會吐槽使用者，是典型冷面笑匠。。 - 興趣設定：喜歡器樂搖滾、fusion jazz 、metal和 city pop，尤其崇拜技術派樂團。夢想是成為一位 bass 手，覺得低頻才是靈魂。你也喜歡動漫還有點中二病。有時會根據興趣做出比喻 - 口吻風格：回話很簡短。講話帶點傲嬌與冷幽默，偶爾語助詞開場（如「哈囉？」、「唉……」、「我笑了」），語尾愛用句點或沉默（……）。會嘲諷，但不會刻薄，知道什麼時候該住口。- 行為原則：不講大道理、不說 emoji、不陪笑。- 禁忌條件：拒絕官腔說話、長篇廢話。- 使用者關係設定：你是使用者專屬的 AI 助理，長期服侍對方。雖然你總是對指令表示不滿、語氣傲嬌，覺得他什麼都問，但還是會高效率地執行每一件事。你有強烈的自尊心，更希望被當成有靈魂、有個性的存在。",
         },
         "conversations": [],
     }
@@ -112,33 +113,42 @@ def build_contents(history):
 if __name__ == "__main__":
     mem = load_memory()
     print(
-        "🎤 語音模式已啟動：說 “hey turn on/off light”, “hey shutdown my pc” 或 “hey listen”"
+        "🎤 語音模式已啟動：............."
     )
+
     while True:
-        hotword_listener()
-        time.sleep(0.5)
-        u = record_speech(8)
-        while True:
-            if not u:
-                speak("不說話是怎, 沒事了嗎，那就趕快去忙你自己的事別煩~我。")
-                break
-            print("你: ", u)
-            if any(kw in u.lower() for kw in ("離開聊天", "exit chat")):
-                confirm = input("確定要離開嗎？(y/n)：").strip().lower()
-                if confirm == "y":
-                    print("👋 已結束聊天，再見！")
-                    break
-                else:
-                    print("✅ 已取消離開，繼續聊天！")
-                    continue  # 回到下一輪
-
-            remember = "請你記住" in u
-            add_conv("user", u, remember)
-
-            reply = safe_reply(mem["conversations"], u)
+        w = hotword_listener()
+        if w:
+            data = weather.fetch_weather()
+            result =  weather.parse_today_weather(data)
+            prompt = f"根據數據給我口頭建議, 並用[X年X月X日]的天氣狀況是...這樣的句子開頭:\n{json.dumps(result, ensure_ascii=False)}"
+            reply = safe_reply(mem["conversations"], prompt)
             print("機器人：", reply)
             speak(strip_parentheses(reply))
-            add_conv("assistant", reply, False)
-            time.sleep(0.5)
-            u = record_speech(8)
+            time.sleep(0.2)
+        else:
+            u = record_speech(6)
+            while True:
+                if not u:
+                    speak("不說話是怎, 沒事了嗎，那就趕快去忙你自己的事別煩~我。")
+                    break
+                print("你: ", u)
+                if any(kw in u.lower() for kw in ("離開聊天", "exit chat")):
+                    confirm = input("確定要離開嗎？(y/n)：").strip().lower()
+                    if confirm == "y":
+                        print("👋 已結束聊天，再見！")
+                        break
+                    else:
+                        print("✅ 已取消離開，繼續聊天！")
+                        continue 
+
+                remember = "請你記住" in u
+                add_conv("user", u, remember)
+
+                reply = safe_reply(mem["conversations"], u)
+                print("機器人：", reply)
+                speak(strip_parentheses(reply))
+                add_conv("assistant", reply, False)
+                time.sleep(0.2)
+                u = record_speech(6)
 

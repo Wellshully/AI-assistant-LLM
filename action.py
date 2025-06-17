@@ -4,7 +4,7 @@ import asyncio
 from bleak import BleakClient
 import subprocess
 import time, os
-
+import weather
 REMOTE_USER = "welly"
 REMOTE_HOST = "192.168.66.14"
 BOT_MAC = "EE:2E:05:86:36:8D"
@@ -51,7 +51,6 @@ def do_light(on: bool):
 
 def chat_mode():
     speak("幹嘛阿, 有啥事阿~~沒事別叫我")
-
 
 def do_shutdown():
     print("[ACTION] Shutdown PC")

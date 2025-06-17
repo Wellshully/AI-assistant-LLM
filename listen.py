@@ -5,9 +5,8 @@ from tts import speak
 from google.cloud import speech_v1 as speech
 import action
 
-# ---------- 基本常數 ----------
-DEVICE_ID = 5
-SAMPLE_RATE = 16000
+DEVICE_ID = 45
+SAMPLE_RATE = 48000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 CMD_MAP = {
     "hey turn off light": "off_light",
@@ -32,14 +31,13 @@ CMD_MAP = {
     "hey play rock": "play_rock",
     "hey open you tube": "open_youtube",
     "hey open you too": "open_youtube",
+    "hey weather": "weather",
 }
 
 THRESHOLD = 95
 LANG = "zh-TW"
 SEC_RECORD = 5
 
-
-# ---------- 熱詞比對 ----------
 def fuzzy_route(text: str):
     for canon, tag in CMD_MAP.items():
         if fuzz.ratio(text, canon) >= THRESHOLD:
@@ -72,38 +70,35 @@ def hotword_listener() -> str:
         blocksize=8000,
         callback=_cb,
     ):
-        print("🎤 正在監聽指令…")
         while True:
             data = q.get()
             if recognizer.AcceptWaveform(data):
                 txt = json.loads(recognizer.Result())["text"]
-                print("t: ", txt)
-            else:
-                txt = json.loads(recognizer.PartialResult())["partial"]
+                print("🎤 Listening: ", txt)
+                if not txt:
+                    continue
+                tag = fuzzy_route(txt.lower())
+                if tag == "off_light":
+                    action.do_light(False)
+                elif tag == "on_light":
+                    action.do_light(True)
+                elif tag == "pc_off":
+                    action.do_shutdown()
+                elif tag == "llm":
+                    action.chat_mode()
+                    return 0
+                elif tag == "weather":
+                    return 1
+                elif tag == "open_youtube":
+                    action.open_yt("https://www.youtube.com")
+                elif tag == "open_cs":
+                    action.launch_game("csgo")
+                elif tag == "open_mail":
+                    action.open_mail()
+                elif tag == "play_rock":
+                    action.play_rock()
 
-            if not txt:
-                continue
-
-            tag = fuzzy_route(txt.lower())
-            if tag == "off_light":
-                action.do_light(False)
-            elif tag == "on_light":
-                action.do_light(True)
-            elif tag == "pc_off":
-                action.do_shutdown()
-            elif tag == "llm":
-                action.chat_mode()
-                return
-            elif tag == "open_youtube":
-                action.open_yt("https://www.youtube.com")
-            elif tag == "open_cs":
-                action.launch_game("csgo")
-            elif tag == "open_mail":
-                action.open_mail()
-            elif tag == "play_rock":
-                action.play_rock()
-
-
+    return 0
 client = speech.SpeechClient()
 
 
