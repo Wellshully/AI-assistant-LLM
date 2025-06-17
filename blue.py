@@ -9,7 +9,7 @@ async def press_bot():
         if await client.is_connected():
             print("✅ Connected to SwitchBot Bot")
             # 按一下
-            await client.write_gatt_char(WRITE_CHAR_UUID, bytearray([0x57, 0x01, 0x02]))
+            await client.write_gatt_char(WRITE_CHAR_UUID, bytearray([0x57, 0x01, 0x01]))
             print("🔘 Sent press command")
         else:
             print("❌ Failed to connect")

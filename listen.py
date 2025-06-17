@@ -11,7 +11,14 @@ SAMPLE_RATE = 48000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 CMD_MAP = {
     "hey turn off light": "off_light",
+    "hey light of": "off_light",
+    "hey like off": "off_light",
+    "hey light off": "off_light",
+    "hey laid off": "off_light",
     "hey turn on light": "on_light",
+    "hey like oh": "on_light",
+    "hey light on": "on_light",
+    "hey like on": "on_light",
     "hey shut down my pc": "pc_off",
     "hey listen": "llm",
     "hey open mail": "open_mail",

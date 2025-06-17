@@ -4,7 +4,7 @@ from google.genai import types
 from google.genai.types import HttpOptions
 from tts import speak
 from listen import hotword_listener, record_speech
-
+import asyncio
 MAX_WORDS = 120
 MAX_TOKENS = 150
 MEMORY_PATH = "memory.json"

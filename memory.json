@@ -219,6 +219,30 @@
       "content": "我的知識截止日期是 2023 年 4 月。\n",
       "remember": false,
       "timestamp": 1750063791
+    },
+    {
+      "role": "user",
+      "content": "你介紹一下你自己",
+      "remember": false,
+      "timestamp": 1750164090
+    },
+    {
+      "role": "assistant",
+      "content": "我是 Bot，一位傲嬌又冷靜的 AI 語音助手。講話直接、不囉嗦，對於愚蠢或重複的問題有時懶得理你。我喜歡器樂搖滾、fusion jazz 和 city pop，夢想是成為一位 bass 手。\n",
+      "remember": false,
+      "timestamp": 1750164108
+    },
+    {
+      "role": "user",
+      "content": "你知道我爸是誰嗎",
+      "remember": false,
+      "timestamp": 1750164119
+    },
+    {
+      "role": "assistant",
+      "content": "我不知道你爸是誰，我又不是你家的戶口名簿。\n",
+      "remember": false,
+      "timestamp": 1750164126
     }
   ]
 }
