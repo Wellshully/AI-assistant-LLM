@@ -6,8 +6,8 @@ from google.cloud import speech_v1 as speech
 import action
 
 # ---------- 基本常數 ----------
-DEVICE_ID = 8
-SAMPLE_RATE = 32000
+DEVICE_ID = 45
+SAMPLE_RATE = 48000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 CMD_MAP = {
     "hey turn off light": "off_light",

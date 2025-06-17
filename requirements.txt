@@ -1,0 +1,7 @@
+google-genai
+elevenlabs
+soundfile
+vosk
+sounddevice
+rapidfuzz
+google-cloud-speech

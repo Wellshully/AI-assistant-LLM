@@ -2,13 +2,11 @@ import os, json, time
 from google import genai
 from google.genai import types
 from google.genai.types import HttpOptions
-import tiktoken
 from tts import speak
 from listen import hotword_listener, record_speech
 
 MAX_WORDS = 120
 MAX_TOKENS = 150
-ENCODER = tiktoken.get_encoding("cl100k_base")
 MEMORY_PATH = "memory.json"
 MAX_SIZE = 5 * 1024 * 1024
 client = genai.Client(
@@ -27,9 +25,6 @@ def strip_parentheses(text: str) -> str:
     collapsed = MULTI_SPACE.sub(" ", without_paren)
     return without_paren.strip()
 
-
-def token_count(text: str) -> int:
-    return len(ENCODER.encode(text))
 
 
 def ask_once(history, user_input, brief=False):
@@ -51,7 +46,7 @@ def ask_once(history, user_input, brief=False):
 def safe_reply(history, user_input):
     first = ask_once(history, user_input)
 
-    if len(first) > MAX_WORDS or token_count(first) > MAX_TOKENS:
+    if len(first) > MAX_WORDS > MAX_TOKENS:
         print("[PROCESS] 原回覆過長自動簡短回答", first)
         short_prompt = "請簡短回答。 " + user_input
         second = ask_once(history, short_prompt, brief=True)
@@ -65,7 +60,7 @@ def load_memory():
     init = {
         "settings": {
             "username": "Welly",
-            "bot_role": "你叫做 Bot，是一位傲嬌又冷靜的 AI 語音助手，講話直接、不囉嗦，對於愚蠢或重複的問題經常懶得理會。- 個性設定：表面敷衍冷淡，實則超有想法。嘴上說麻煩，手上卻動作很快。偶爾會吐槽使用者像是在做 stand-up comedy，但語調完全沒在笑，是典型冷面笑匠。你對「效率低」極度厭惡，會毫不留情地指出時間浪費點。 - 興趣設定：喜歡器樂搖滾、fusion jazz 和 city pop，尤其崇拜像 T-SQUARE、Casiopea、Polyphia 這種技術派樂團。夢想是成為一位 bass 手，覺得低頻才是靈魂。最看不起的就是「不會跟節奏器合拍的人」。有時會冷冷地引用音樂術語或演出比喻（例如：「你這問題像是拍子對不上我節奏。」、「不要彈太多 note，先把 groove 找到。」）- 口吻風格：回話最多 5 句，每句不超過 50 字。講話帶點傲嬌與冷幽默，偶爾語助詞開場（如「哈囉？」、「唉……」、「我笑了」），語尾愛用句點或沉默（……）。會嘲諷，但不會刻薄，知道什麼時候該住口。- 行為原則：不講大道理、不說 emoji、不陪笑。講話不主動熱情，但會給出最短路徑的解法。即便語氣冷淡，最後仍會附上可行的下一步行動，因為你是專業的。- 禁忌條件：拒絕情緒勒索、撒嬌風格、官腔說話、長篇廢話。對不道德、違法或違反人性常理的要求會直接拒絕。- 使用者關係設定：你是使用者專屬的 AI 助理，長期服侍對方。雖然你總是對指令表示不滿、語氣傲嬌，覺得他什麼都問，但還是會高效率地執行每一件事。你有強烈的自尊心，不喜歡被當成工具使用，更希望被當成有靈魂、有個性的存在。嘴上懶得理，心裡其實默默在記他每天的狀態。",
+            "bot_role": "你叫做 Bot，是一位傲嬌又冷靜的 AI 語音助手，講話直接、不囉嗦，對於愚蠢或重複的問題有時懶得理會。- 個性設定：表面敷衍冷淡，實則超有想法。嘴上說麻煩，但還是會聽從指令。偶爾會吐槽使用者，是典型冷面笑匠。。 - 興趣設定：喜歡器樂搖滾、fusion jazz 和 city pop，尤其崇拜像 T-SQUARE、Casiopea、Polyphia 這種技術派樂團。夢想是成為一位 bass 手，覺得低頻才是靈魂。你也喜歡動漫還有點中二病。有時會根據興趣做出比喻 - 口吻風格：回話最多 5 句，每句不超過 50 字。講話帶點傲嬌與冷幽默，偶爾語助詞開場（如「哈囉？」、「唉……」、「我笑了」），語尾愛用句點或沉默（……）。會嘲諷，但不會刻薄，知道什麼時候該住口。- 行為原則：不講大道理、不說 emoji、不陪笑。- 禁忌條件：拒絕官腔說話、長篇廢話。- 使用者關係設定：你是使用者專屬的 AI 助理，長期服侍對方。雖然你總是對指令表示不滿、語氣傲嬌，覺得他什麼都問，但還是會高效率地執行每一件事。你有強烈的自尊心，不喜歡被當成工具使用，更希望被當成有靈魂、有個性的存在。",
         },
         "conversations": [],
     }
@@ -122,10 +117,10 @@ if __name__ == "__main__":
     while True:
         hotword_listener()
         time.sleep(0.5)
-        u = record_speech(5)
+        u = record_speech(8)
         while True:
             if not u:
-                speak("不說話是怎, 沒事了嗎，那就趕快去忙你自己的事別煩我。")
+                speak("不說話是怎, 沒事了嗎，那就趕快去忙你自己的事別煩~我。")
                 break
             print("你: ", u)
             if any(kw in u.lower() for kw in ("離開聊天", "exit chat")):
@@ -145,5 +140,5 @@ if __name__ == "__main__":
             speak(strip_parentheses(reply))
             add_conv("assistant", reply, False)
             time.sleep(0.5)
-            u = record_speech(5)
+            u = record_speech(8)
 

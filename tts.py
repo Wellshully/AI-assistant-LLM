@@ -5,7 +5,7 @@ _11 = ElevenLabs(api_key="sk_6aea8b24cef93bd18a8c965c8486e39d85076ee9c32661a1")
 #male: fQj4gJSexpu8RDE2Ii5m
 VOICE_ID  = "hkfHEbBvdQFNX4uWHqRF" 
 MODEL_ID  = "eleven_multilingual_v2"
-BASE_SETTINGS   = {"stability": 0.95, "similarity_boost": 0.8, "speed": 1.0}
+BASE_SETTINGS   = {"stability": 0.95, "similarity_boost": 0.85, "speed": 1.0}
 
 def speak(text: str, mute: bool = False):
     speed = 1.2 if len(text) > 25 else 1.0
