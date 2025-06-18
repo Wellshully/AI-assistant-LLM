@@ -8,55 +8,11 @@ import asyncio
 import weather
 from mood import MoodManager
 import config
-
+from llm_parse import safe_reply, generate_weather_advice
 mood_mgr = MoodManager()
 MAX_WORDS = config.MAX_WORDS
-MAX_TOKENS = config.MAX_TOKENS
 MEMORY_PATH = config.MEMORY_PATH
 MAX_SIZE = config.MAX_SIZE
-client = genai.Client(
-    http_options=HttpOptions(api_version="v1beta"),
-    api_key=config.GEMINI_API,
-)
-
-import re
-
-PARENS_RE = re.compile(r"\([^)]*\)")
-MULTI_SPACE = re.compile(r"\s{2,}")
-
-
-def strip_parentheses(text: str) -> str:
-    without_paren = PARENS_RE.sub("", text)
-    collapsed = MULTI_SPACE.sub(" ", without_paren)
-    return without_paren.strip()
-
-
-def ask_once(history, user_input, brief=False):
-    convo = history + [{"role": "user", "content": user_input}]
-    sys_inst = mem["settings"]["bot_role"]
-    if brief:
-        sys_inst += " 回答請控制在5句以內，避免冗詞，且不要提到『請簡短回答』此要求。"
-
-    resp = client.models.generate_content(
-        model="gemini-2.0-flash-001",
-        contents=build_contents(convo),
-        config=types.GenerateContentConfig(
-            system_instruction=sys_inst, max_output_tokens=512
-        ),
-    )
-    return resp.text
-
-
-def safe_reply(history, user_input):
-    first = ask_once(history, user_input)
-
-    if len(first) > MAX_WORDS > MAX_TOKENS:
-        print("[PROCESS] 原回覆過長自動簡短回答", first)
-        short_prompt = "請簡短回答。 " + user_input
-        second = ask_once(history, short_prompt, brief=True)
-        return second
-    return first
-
 
 def load_memory():
     if os.path.exists(MEMORY_PATH):
@@ -121,33 +77,20 @@ if __name__ == "__main__":
         w = hotword_listener()
         if w:
             data = weather.fetch_weather()
-            result = weather.parse_today_weather(data)
-            prompt = f"根據數據給我口頭建議, 並用[X年X月X日]的天氣狀況是...這樣的句子開頭:\n{json.dumps(result, ensure_ascii=False)}"
-            reply = safe_reply(mem["conversations"], prompt)
+            result = weather.parse_today_weather(data)json.dumps(result, ensure_ascii=False
+            reply = generate_weather_advice(mem["conversations"], json.dumps(result, ensure_ascii=False), MAX_WORDS)
             print("機器人：", reply)
             speak(strip_parentheses(reply))
             time.sleep(0.2)
         else:
             u = record_speech(6)
             while True:
-                if not u:
-                    speak("不說話是怎, 沒事了嗎，那就趕快去忙你自己的事別煩~我。")
-                    break
-                if any(kw in u.lower() for kw in ("離開聊天", "exit chat")):
-                    confirm = input("確定要離開嗎？(y/n)：").strip().lower()
-                    if confirm == "y":
-                        print("👋 已結束聊天，再見！")
-                        break
-                    else:
-                        print("✅ 已取消離開，繼續聊天！")
-                        continue
-
                 remember = "請你記住" in u
                 mood_mgr.update(u)
                 add_conv("user", u, remember)
                 prompt = mood_mgr.get_prompt_prefix() + u
                 print("你: ", prompt)
-                reply = safe_reply(mem["conversations"], prompt)
+                reply = safe_reply(mem["conversations"], prompt, MAX_WORDS)
                 print("機器人：", reply)
                 speak(strip_parentheses(reply))
                 add_conv("assistant", reply, False)

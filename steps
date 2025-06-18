@@ -8,6 +8,7 @@ pip install google-cloud-speech
 pip install pygetwindow
 pip install pyperclip
 pip install pydub
+pip install google-api-python-client
 sudo apt install ffmpeg //wsl
 sudo apt-get install apt-transport-https ca-certificates gnupg curl//Debian
 sudo apt install portaudio19-dev
@@ -29,3 +30,5 @@ sudo apt-get update && sudo apt-get install google-cloud-cli
 
 gcloud init
 gcloud auth application-default login
+# calendar need
+gcloud auth application-default login  --scopes=https://www.googleapis.com/auth/calendar,https://www.googleapis.com/auth/cloud-platform
