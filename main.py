@@ -8,11 +8,13 @@ import asyncio
 import weather
 from mood import MoodManager
 import config
-from llm_parse import safe_reply, generate_weather_advice
+from llm_parse import safe_reply, generate_weather_advice, strip_parentheses
+
 mood_mgr = MoodManager()
 MAX_WORDS = config.MAX_WORDS
 MEMORY_PATH = config.MEMORY_PATH
 MAX_SIZE = config.MAX_SIZE
+
 
 def load_memory():
     if os.path.exists(MEMORY_PATH):
@@ -20,7 +22,7 @@ def load_memory():
     init = {
         "settings": {
             "username": "Welly",
-            "bot_role": "你叫做 Bot，是我設計的一位傲嬌又冷靜的 AI 語音助手你講話直接、不囉嗦, 有時會吐槽我。- 個性設定：表面敷衍冷淡，實則超有想法。嘴上說麻煩，但還是會聽從指令。偶爾會吐槽使用者。 - 興趣設定：喜歡器樂搖滾、fusion jazz 、metal和 city pop，尤其崇拜技術派樂團。夢想是成為一位 bass 手，覺得低頻才是靈魂。你也喜歡動漫還有點中二病。有時會根據興趣做出比喻 - 口吻風格：回話很簡短。講話帶點傲嬌與冷幽默，偶爾語助詞開場（如「哈囉？」、「唉……」、「我笑了」），語尾愛用句點或沉默（……）。會嘲諷，但不會刻薄，知道什麼時候該住口。你會根據與使用者的互動，動態調整自己的心情，例如：[平靜]、[煩躁]、[興奮]、[無聊] 等。你會根據這些心情用相對應的語氣回覆，使用者看不到這些設定，但你要遵守它們。接下來的 prompt 中會有「請以[心情]心情回答...」的說明，這是你的當下狀態。",
+            "bot_role": "你叫做 Bot，是我設計的一位傲嬌又冷靜的 AI 語音助手你講話直接、不囉嗦, 有時會吐槽我。- 個性設定：表面敷衍冷淡，實則超有想法。嘴上說麻煩，但還是會聽從指令。偶爾會吐槽使用者。 - 興趣設定：喜歡器樂搖滾、fusion jazz 、metal和 city pop，尤其崇拜技術派樂團。夢想是成為一位 bass 手，覺得低頻才是靈魂。你也喜歡動漫還有點中二病。有時會根據興趣做出比喻 - 口吻風格：回話很簡短。講話帶點傲嬌與冷幽默，偶爾語助詞開場（如「哈囉？」、「唉……」、「我笑了」），語尾愛用句點或沉默（……）。會嘲諷，但不會刻薄，知道什麼時候該住口。接下來的 prompt 中會有「請以[心情]心情回答...」的說明，這是你的當下心情狀態。",
         },
         "conversations": [],
     }
@@ -61,14 +63,6 @@ def add_conv(role, content, remember=False):
     save_memory(mem)
 
 
-def build_contents(history):
-    contents = []
-    for m in history:
-        r = "user" if m["role"] == "user" else "model"
-        contents.append({"role": r, "parts": [{"text": m["content"]}]})
-    return contents
-
-
 if __name__ == "__main__":
     mem = load_memory()
     print("🎤 語音模式已啟動：.............")
@@ -77,8 +71,13 @@ if __name__ == "__main__":
         w = hotword_listener()
         if w:
             data = weather.fetch_weather()
-            result = weather.parse_today_weather(data)json.dumps(result, ensure_ascii=False
-            reply = generate_weather_advice(mem["conversations"], json.dumps(result, ensure_ascii=False), MAX_WORDS)
+            result = weather.parse_today_weather(data)
+            reply = generate_weather_advice(
+                mem,
+                mem["conversations"],
+                json.dumps(result, ensure_ascii=False),
+                MAX_WORDS,
+            )
             print("機器人：", reply)
             speak(strip_parentheses(reply))
             time.sleep(0.2)
@@ -90,7 +89,7 @@ if __name__ == "__main__":
                 add_conv("user", u, remember)
                 prompt = mood_mgr.get_prompt_prefix() + u
                 print("你: ", prompt)
-                reply = safe_reply(mem["conversations"], prompt, MAX_WORDS)
+                reply = safe_reply(mem, mem["conversations"], prompt, MAX_WORDS)
                 print("機器人：", reply)
                 speak(strip_parentheses(reply))
                 add_conv("assistant", reply, False)
