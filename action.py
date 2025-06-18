@@ -6,11 +6,13 @@ import subprocess
 import time, os
 import weather
 import config
+
 REMOTE_USER = config.REMOTE_USER
 REMOTE_HOST = config.REMOTE_HOST
 BOT_MAC = config.BOT_MAC
 WRITE_CHAR_UUID = config.WRITE_CHAR_UUID
 PASS = config.PASS
+
 
 def ssh_exec(bat_filename: str):
     cmd = f'ssh {REMOTE_USER}@{REMOTE_HOST} "{bat_filename}"'
@@ -47,11 +49,39 @@ def do_light(on: bool):
 
     threading.Thread(target=lambda: asyncio.run(ble_send()), daemon=True).start()
     speak("開燈。" if on else "關燈。", local=True)
+
+
 def type_pass():
     script_path = r"bot_type.sh"
     subprocess.Popen(["bash", script_path, PASS])
+
+
+import subprocess
+import platform
+
+
+def has_internet(host="google.com") -> bool:
+    param = "-n" if platform.system().lower() == "windows" else "-c"
+    try:
+        out = subprocess.check_output(
+            ["ping", param, "1", host],
+            stderr=subprocess.DEVNULL,
+            universal_newlines=True,
+        )
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+
 def chat_mode():
-    speak("幹嘛阿, 有啥事阿~~", local=True)
+    if not has_internet():
+        print("No internet")
+        speak("網路好像有問題喔, 連接不到線上模型", local=True)
+        return 0
+    else:
+        speak("幹嘛阿, 有啥事阿~~", local=True)
+        return 1
+
 
 def do_shutdown():
     print("[ACTION] Shutdown PC")

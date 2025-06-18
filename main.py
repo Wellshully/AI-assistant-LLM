@@ -8,6 +8,7 @@ import asyncio
 import weather
 from mood import MoodManager
 import config
+
 mood_mgr = MoodManager()
 MAX_WORDS = config.MAX_WORDS
 MAX_TOKENS = config.MAX_TOKENS
@@ -28,7 +29,6 @@ def strip_parentheses(text: str) -> str:
     without_paren = PARENS_RE.sub("", text)
     collapsed = MULTI_SPACE.sub(" ", without_paren)
     return without_paren.strip()
-
 
 
 def ask_once(history, user_input, brief=False):
@@ -115,15 +115,13 @@ def build_contents(history):
 
 if __name__ == "__main__":
     mem = load_memory()
-    print(
-        "🎤 語音模式已啟動：............."
-    )
-    
+    print("🎤 語音模式已啟動：.............")
+
     while True:
         w = hotword_listener()
         if w:
             data = weather.fetch_weather()
-            result =  weather.parse_today_weather(data)
+            result = weather.parse_today_weather(data)
             prompt = f"根據數據給我口頭建議, 並用[X年X月X日]的天氣狀況是...這樣的句子開頭:\n{json.dumps(result, ensure_ascii=False)}"
             reply = safe_reply(mem["conversations"], prompt)
             print("機器人：", reply)
@@ -142,11 +140,11 @@ if __name__ == "__main__":
                         break
                     else:
                         print("✅ 已取消離開，繼續聊天！")
-                        continue 
+                        continue
 
                 remember = "請你記住" in u
-                add_conv("user", u, remember)
                 mood_mgr.update(u)
+                add_conv("user", u, remember)
                 prompt = mood_mgr.get_prompt_prefix() + u
                 print("你: ", prompt)
                 reply = safe_reply(mem["conversations"], prompt)
@@ -155,4 +153,3 @@ if __name__ == "__main__":
                 add_conv("assistant", reply, False)
                 time.sleep(0.2)
                 u = record_speech(6)
-

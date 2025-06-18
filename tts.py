@@ -3,6 +3,7 @@ from elevenlabs import play
 import os
 import hashlib
 import config
+
 _11 = ElevenLabs(api_key=config.ELE_API)
 # female: hkfHEbBvdQFNX4uWHqRF
 # male: fQj4gJSexpu8RDE2Ii5m

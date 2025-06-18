@@ -5,6 +5,7 @@ from tts import speak
 from google.cloud import speech_v1 as speech
 import action
 import config
+
 DEVICE_ID = config.DEVICE_ID  # 5
 SAMPLE_RATE = config.SAMPLE_RATE  # 16000
 MODEL_PATH = config.MODEL_PATH
@@ -61,8 +62,9 @@ def hotword_listener() -> str:
                 elif tag == "pc_off":
                     action.do_shutdown()
                 elif tag == "llm":
-                    action.chat_mode()
-                    return 0
+                    internet = action.chat_mode()
+                    if internet:
+                        return 0
                 elif tag == "weather":
                     return 1
                 elif tag == "open_youtube":

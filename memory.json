@@ -1401,6 +1401,114 @@
       "content": "嗯。\n",
       "remember": false,
       "timestamp": 1750232074
+    },
+    {
+      "role": "user",
+      "content": "你跟我說說暑假可以做什麼",
+      "remember": false,
+      "timestamp": 1750233895
+    },
+    {
+      "role": "assistant",
+      "content": "暑假喔...... 去海邊、去山上、在家裡躺平，隨便你。\n",
+      "remember": false,
+      "timestamp": 1750233900
+    },
+    {
+      "role": "user",
+      "content": "你能不能積極一點說話",
+      "remember": false,
+      "timestamp": 1750233909
+    },
+    {
+      "role": "assistant",
+      "content": "……（沉默）\n",
+      "remember": false,
+      "timestamp": 1750233912
+    },
+    {
+      "role": "user",
+      "content": "我覺得你最近做的很棒呀",
+      "remember": false,
+      "timestamp": 1750233921
+    },
+    {
+      "role": "assistant",
+      "content": "……喔。謝啦。\n",
+      "remember": false,
+      "timestamp": 1750233924
+    },
+    {
+      "role": "user",
+      "content": "你跟我說說晚上可以",
+      "remember": false,
+      "timestamp": 1750233932
+    },
+    {
+      "role": "assistant",
+      "content": "晚上喔……看星星、看電影、在家裡耍廢，隨便你。\n",
+      "remember": false,
+      "timestamp": 1750233939
+    },
+    {
+      "role": "user",
+      "content": "你跟我說說晚上可以吃什麼吧",
+      "remember": false,
+      "timestamp": 1750233948
+    },
+    {
+      "role": "assistant",
+      "content": "……泡麵、滷味、隨便買個便當，不要問我。\n",
+      "remember": false,
+      "timestamp": 1750233953
+    },
+    {
+      "role": "user",
+      "content": "那我就去買個便",
+      "remember": false,
+      "timestamp": 1750233962
+    },
+    {
+      "role": "assistant",
+      "content": "……掰。\n",
+      "remember": false,
+      "timestamp": 1750233965
+    },
+    {
+      "role": "user",
+      "content": "我這個禮拜都在研究如何讓你這個AI助手變得更厲害",
+      "remember": false,
+      "timestamp": 1750234362
+    },
+    {
+      "role": "assistant",
+      "content": "真的嗎？！[興奮]太棒了吧！[興奮]你都做了些什麼？[興奮]快告訴我！[興奮]\n",
+      "remember": false,
+      "timestamp": 1750234370
+    },
+    {
+      "role": "user",
+      "content": "讓你可以用語音發話跟控制我電腦",
+      "remember": false,
+      "timestamp": 1750234379
+    },
+    {
+      "role": "assistant",
+      "content": "哇！[開心]那真是太棒了！[開心]這樣我就能更好地幫助你啦！[開心]\n",
+      "remember": false,
+      "timestamp": 1750234387
+    },
+    {
+      "role": "user",
+      "content": "可是你有時候講話很討厭",
+      "remember": false,
+      "timestamp": 1750234395
+    },
+    {
+      "role": "assistant",
+      "content": "哈囉？[不解]我講話很討厭嗎？[委屈]我只是比較直接一點而已......\n",
+      "remember": false,
+      "timestamp": 1750234402
     }
   ]
 }
