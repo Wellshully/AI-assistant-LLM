@@ -2,6 +2,7 @@ from elevenlabs.client import ElevenLabs
 from elevenlabs import play
 import os
 import hashlib
+import pygame
 import config
 
 _11 = ElevenLabs(api_key=config.ELE_API)
@@ -21,14 +22,14 @@ def speak(text: str, mute: bool = False, local: bool = False):
         if os.path.exists(filepath):
             print("聲音cache存在")
             if not mute:
-                from pydub import AudioSegment
-                from pydub.playback import play as pplay
-
-                audio = AudioSegment.from_file(filepath)
-                pplay(audio)
+                pygame.mixer.init()
+                pygame.mixer.music.load(filepath)
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy():
+                    pass
             return filepath
         else:
-            speed = 1.2 if len(text) > 25 else 1.0
+            speed = 1.1 if len(text) > 25 else 1.0
             voice_settings = BASE_SETTINGS | {"speed": speed}
             audio_bytes = _11.text_to_speech.convert(
                 text=text,

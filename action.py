@@ -6,13 +6,16 @@ import subprocess
 import time, os
 import weather
 import config
-
+import pytz
+import calendar_api
+import llm_parse
+from datetime import datetime, timedelta
 REMOTE_USER = config.REMOTE_USER
 REMOTE_HOST = config.REMOTE_HOST
 BOT_MAC = config.BOT_MAC
 WRITE_CHAR_UUID = config.WRITE_CHAR_UUID
 PASS = config.PASS
-
+MAX_WORDS = config.MAX_WORDS
 
 def ssh_exec(bat_filename: str):
     cmd = f'ssh {REMOTE_USER}@{REMOTE_HOST} "{bat_filename}"'
@@ -82,7 +85,25 @@ def chat_mode():
         speak("幹嘛阿, 有啥事阿~~", local=True)
         return 1
 
-
+def schedule_manager(mem):
+    if not has_internet():
+        print("No internet")
+        speak("網路好像有問題喔, 連接不到行程表", local=True)
+    else:
+        today = datetime.now().date()
+        weekday = today.weekday() 
+        monday = today - timedelta(days=weekday)
+        sunday = monday + timedelta(days=6)
+        events = calendar_api.list_events_for_week(monday, sunday)
+        reply = llm_parse.generate_schedule_report(
+                mem,
+                mem["conversations"],
+                datetime.now(),
+                events,
+                MAX_WORDS,
+            )
+        print(reply)
+        speak(reply)
 def do_shutdown():
     print("[ACTION] Shutdown PC")
     speak("我設定8秒後關機...... 你是不會自己關嗎...", local=True)

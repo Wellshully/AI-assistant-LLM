@@ -10,12 +10,13 @@ CACHE_DIR = "tts_cache"
 # Gemini client 設定
 GEMINI_API = "AIzaSyDEwTDG5ul6RGCoVIamkn7FtCfm4XFOAX8"
 # 語音辨識與語音控制
-DEVICE_ID = 5
-SAMPLE_RATE = 16000
+DEVICE_ID = 45
+SAMPLE_RATE = 48000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 
 # 語音指令對應表
 CMD_MAP = {
+    "hey schedule": "schedule",
     "light up": "on_light",
     "light on": "on_light",
     "light off": "off_light",
@@ -48,7 +49,7 @@ CMD_MAP = {
 }
 
 # 語意與語音參數
-MAX_WORDS = 120
+MAX_WORDS = 150
 MAX_TOKENS = 150
 THRESHOLD = 90
 LANG = "zh-TW"

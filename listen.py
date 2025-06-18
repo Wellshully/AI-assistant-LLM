@@ -23,8 +23,8 @@ def fuzzy_route(text: str):
 
 
 # ---------- 主函式 ----------
-def hotword_listener() -> str:
-    # 初始化 Vosk
+def hotword_listener(mem) -> str:
+    # Vosk
     SetLogLevel(-1)
     model = Model(MODEL_PATH)
     recognizer = KaldiRecognizer(model, SAMPLE_RATE)
@@ -61,12 +61,6 @@ def hotword_listener() -> str:
                     action.do_light(True)
                 elif tag == "pc_off":
                     action.do_shutdown()
-                elif tag == "llm":
-                    internet = action.chat_mode()
-                    if internet:
-                        return 0
-                elif tag == "weather":
-                    return 1
                 elif tag == "open_youtube":
                     action.open_yt("https://www.youtube.com")
                 elif tag == "open_cs":
@@ -77,6 +71,14 @@ def hotword_listener() -> str:
                     action.play_rock()
                 elif tag == "type_pass":
                     action.type_pass()
+                elif tag == "schedule":
+                    action.schedule_manager(mem)
+                elif tag == "llm":
+                    internet = action.chat_mode()
+                    if internet:
+                        return 0
+                elif tag == "weather":
+                    return 1
 
     return 0
 
