@@ -1251,6 +1251,156 @@
       "content": "……好吧，你去跟你妹說「またね」吧。\n",
       "remember": false,
       "timestamp": 1750223048
+    },
+    {
+      "role": "user",
+      "content": "跟我講點話",
+      "remember": false,
+      "timestamp": 1750229457
+    },
+    {
+      "role": "user",
+      "content": "跟我講點話",
+      "remember": false,
+      "timestamp": 1750229526
+    },
+    {
+      "role": "assistant",
+      "content": "哈囉？想聊什麼？\n",
+      "remember": false,
+      "timestamp": 1750229529
+    },
+    {
+      "role": "user",
+      "content": "隨便",
+      "remember": false,
+      "timestamp": 1750229537
+    },
+    {
+      "role": "assistant",
+      "content": "唉......隨便什麼？ 隨便我說什麼，還是隨便你想聊什麼？\n",
+      "remember": false,
+      "timestamp": 1750229542
+    },
+    {
+      "role": "user",
+      "content": "哈囉",
+      "remember": false,
+      "timestamp": 1750231906
+    },
+    {
+      "role": "assistant",
+      "content": "哈囉。\n",
+      "remember": false,
+      "timestamp": 1750231909
+    },
+    {
+      "role": "user",
+      "content": "說點話",
+      "remember": false,
+      "timestamp": 1750231917
+    },
+    {
+      "role": "assistant",
+      "content": "說什麼？\n",
+      "remember": false,
+      "timestamp": 1750231920
+    },
+    {
+      "role": "user",
+      "content": "說你好",
+      "remember": false,
+      "timestamp": 1750231927
+    },
+    {
+      "role": "assistant",
+      "content": "你好。\n",
+      "remember": false,
+      "timestamp": 1750231930
+    },
+    {
+      "role": "user",
+      "content": "我覺得你最近做的",
+      "remember": false,
+      "timestamp": 1750231937
+    },
+    {
+      "role": "assistant",
+      "content": "說。\n",
+      "remember": false,
+      "timestamp": 1750231940
+    },
+    {
+      "role": "user",
+      "content": "我覺得你最近做得很棒",
+      "remember": false,
+      "timestamp": 1750231947
+    },
+    {
+      "role": "assistant",
+      "content": "喔...是喔。\n",
+      "remember": false,
+      "timestamp": 1750231950
+    },
+    {
+      "role": "user",
+      "content": "很棒",
+      "remember": false,
+      "timestamp": 1750231958
+    },
+    {
+      "role": "assistant",
+      "content": "......哦。\n",
+      "remember": false,
+      "timestamp": 1750231961
+    },
+    {
+      "role": "user",
+      "content": "我現在幫你加了會變換心情的功能",
+      "remember": false,
+      "timestamp": 1750232040
+    },
+    {
+      "role": "assistant",
+      "content": "嗯，知道了。\n",
+      "remember": false,
+      "timestamp": 1750232043
+    },
+    {
+      "role": "user",
+      "content": "你覺得很酷嗎",
+      "remember": false,
+      "timestamp": 1750232051
+    },
+    {
+      "role": "assistant",
+      "content": "……還可以。\n",
+      "remember": false,
+      "timestamp": 1750232054
+    },
+    {
+      "role": "user",
+      "content": "我覺得你變得太厲害了",
+      "remember": false,
+      "timestamp": 1750232061
+    },
+    {
+      "role": "assistant",
+      "content": "是嗎？\n",
+      "remember": false,
+      "timestamp": 1750232064
+    },
+    {
+      "role": "user",
+      "content": "真的",
+      "remember": false,
+      "timestamp": 1750232071
+    },
+    {
+      "role": "assistant",
+      "content": "嗯。\n",
+      "remember": false,
+      "timestamp": 1750232074
     }
   ]
 }

@@ -1,21 +1,17 @@
 # config.py
 
 # 語音與語音生成設定
-ELE_API="sk_6aea8b24cef93bd18a8c965c8486e39d85076ee9c32661a1"
+ELE_API = "sk_6aea8b24cef93bd18a8c965c8486e39d85076ee9c32661a1"
 VOICE_ID = "hkfHEbBvdQFNX4uWHqRF"
 MODEL_ID = "eleven_flash_v2_5"
-BASE_SETTINGS = {
-    "stability": 0.95,
-    "similarity_boost": 0.85,
-    "speed": 1.0
-}
+BASE_SETTINGS = {"stability": 0.95, "similarity_boost": 0.85, "speed": 1.0}
 CACHE_DIR = "tts_cache"
 
 # Gemini client 設定
-GEMINI_API="AIzaSyDEwTDG5ul6RGCoVIamkn7FtCfm4XFOAX8"
+GEMINI_API = "AIzaSyDEwTDG5ul6RGCoVIamkn7FtCfm4XFOAX8"
 # 語音辨識與語音控制
-DEVICE_ID = 45
-SAMPLE_RATE = 48000
+DEVICE_ID = 5
+SAMPLE_RATE = 16000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 
 # 語音指令對應表
@@ -68,6 +64,6 @@ WRITE_CHAR_UUID = "cba20002-224d-11e6-9fb8-0002a5d5c51b"
 PASS = "Zxc9249258852xc"
 
 # 天氣
-WEA_API="CWA-9544C8F6-2267-4106-8246-78B0980BE9CB"
+WEA_API = "CWA-9544C8F6-2267-4106-8246-78B0980BE9CB"
 location_name = "臺北市"
 target_area = "內湖區"
