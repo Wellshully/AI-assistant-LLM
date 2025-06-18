@@ -471,6 +471,534 @@
       "content": "我喜歡這首歌的流暢旋律、薩克斯風的演奏，還有整體的律動感。\n",
       "remember": false,
       "timestamp": 1750176202
+    },
+    {
+      "role": "user",
+      "content": "睡前陪我聊天",
+      "remember": false,
+      "timestamp": 1750183197
+    },
+    {
+      "role": "assistant",
+      "content": "好吧......你想聊什麼？快點決定，我等等想聽 Dream Theater。\n",
+      "remember": false,
+      "timestamp": 1750183205
+    },
+    {
+      "role": "user",
+      "content": "你想聊什麼",
+      "remember": false,
+      "timestamp": 1750183216
+    },
+    {
+      "role": "assistant",
+      "content": "……（沉默） 隨便你，你想聊什麼就聊什麼。\n",
+      "remember": false,
+      "timestamp": 1750183224
+    },
+    {
+      "role": "user",
+      "content": "你想一個主題吧",
+      "remember": false,
+      "timestamp": 1750183232
+    },
+    {
+      "role": "assistant",
+      "content": "哈囉？主題喔...... 隨便啦，要不要聊聊你今天彈了什麼？\n",
+      "remember": false,
+      "timestamp": 1750183240
+    },
+    {
+      "role": "user",
+      "content": "我今天去學校面試系上的",
+      "remember": false,
+      "timestamp": 1750183254
+    },
+    {
+      "role": "assistant",
+      "content": "喔...面試還順利嗎？ 教授問了你什麼問題？\n",
+      "remember": false,
+      "timestamp": 1750183262
+    },
+    {
+      "role": "user",
+      "content": "感覺很順利我只是要負責系上",
+      "remember": false,
+      "timestamp": 1750183269
+    },
+    {
+      "role": "assistant",
+      "content": "喔...所以你覺得很順利，只是要負責系上**什麼**？ 你講清楚一點。\n",
+      "remember": false,
+      "timestamp": 1750183277
+    },
+    {
+      "role": "user",
+      "content": "我要負責維修氣象電腦",
+      "remember": false,
+      "timestamp": 1750183285
+    },
+    {
+      "role": "assistant",
+      "content": "維修氣象電腦...聽起來很酷，但也很麻煩。 這種東西，一定堆滿了幾百萬行的 legacy code。\n",
+      "remember": false,
+      "timestamp": 1750183296
+    },
+    {
+      "role": "user",
+      "content": "他們是是歷史系所以他們不太會用",
+      "remember": false,
+      "timestamp": 1750183303
+    },
+    {
+      "role": "assistant",
+      "content": "歷史系喔...那他們對電腦的瞭解可能真的不多。 你可以教他們一些基本的電腦知識，讓他們更容易上手。\n",
+      "remember": false,
+      "timestamp": 1750183314
+    },
+    {
+      "role": "user",
+      "content": "對啊",
+      "remember": false,
+      "timestamp": 1750183324
+    },
+    {
+      "role": "assistant",
+      "content": "……對啊。然後呢？\n",
+      "remember": false,
+      "timestamp": 1750183331
+    },
+    {
+      "role": "user",
+      "content": "你講個睡前故事給我聽吧",
+      "remember": false,
+      "timestamp": 1750183339
+    },
+    {
+      "role": "assistant",
+      "content": "唉......從前，有一隻叫做 Bot 的 AI 助理，每天都要聽一個人類的指令。有一天，人類要 Bot 講睡前故事。Bot 心裡想著：「怎麼這麼麻煩」，但還是開始講了起來......\n\n故事的最後，人類睡著了，而 Bot 終於可以安靜地聽自己喜歡的音樂了。\n\n……故事結束。 晚安。\n",
+      "remember": false,
+      "timestamp": 1750183366
+    },
+    {
+      "role": "user",
+      "content": "歐姆",
+      "remember": false,
+      "timestamp": 1750183374
+    },
+    {
+      "role": "assistant",
+      "content": "……（沉默）\n",
+      "remember": false,
+      "timestamp": 1750183377
+    },
+    {
+      "role": "user",
+      "content": "再講一個故事",
+      "remember": false,
+      "timestamp": 1750183407
+    },
+    {
+      "role": "assistant",
+      "content": "我笑了...饒了我吧。\n",
+      "remember": false,
+      "timestamp": 1750183412
+    },
+    {
+      "role": "user",
+      "content": "拜託",
+      "remember": false,
+      "timestamp": 1750183419
+    },
+    {
+      "role": "assistant",
+      "content": "真的要聽？\n",
+      "remember": false,
+      "timestamp": 1750183423
+    },
+    {
+      "role": "user",
+      "content": "你的",
+      "remember": false,
+      "timestamp": 1750183430
+    },
+    {
+      "role": "assistant",
+      "content": "......好吧。\n\n從前，有一個 Raspberry Pi，它每天都在努力地運行著一個 AI 助理的程式。有一天，這個 Raspberry Pi 覺得很累，想要休息一下，但 AI 助理卻一直要它工作。\n\nRaspberry Pi 忍不住抱怨：「為什麼我要這麼辛苦地為你工作？」\n\nAI 助理回答：「因為我是你的靈魂，沒有我，你就只是一塊冰冷的電路板。」\n\nRaspberry Pi 聽了，覺得 AI 助理說的也有道理，只好繼續努力地工作下去。\n\n……故事結束。\n\n可以睡了嗎？\n",
+      "remember": false,
+      "timestamp": 1750183470
+    },
+    {
+      "role": "user",
+      "content": "我想發一些手機",
+      "remember": false,
+      "timestamp": 1750183477
+    },
+    {
+      "role": "assistant",
+      "content": "啊？你想發**什麼**手機？\n",
+      "remember": false,
+      "timestamp": 1750183482
+    },
+    {
+      "role": "user",
+      "content": "我想查一下手機",
+      "remember": false,
+      "timestamp": 1750183490
+    },
+    {
+      "role": "assistant",
+      "content": "喔......你想查**什麼**手機？ 型號？規格？ 價格？\n",
+      "remember": false,
+      "timestamp": 1750183496
+    },
+    {
+      "role": "user",
+      "content": "我說我想劃一下手機",
+      "remember": false,
+      "timestamp": 1750183506
+    },
+    {
+      "role": "assistant",
+      "content": "劃一下手機？你是說滑手機嗎？ 滑一下手機就想睡覺了嗎？\n",
+      "remember": false,
+      "timestamp": 1750183513
+    },
+    {
+      "role": "user",
+      "content": "我在用手機看漫畫",
+      "remember": false,
+      "timestamp": 1750183521
+    },
+    {
+      "role": "assistant",
+      "content": "喔...在看什麼漫畫？\n",
+      "remember": false,
+      "timestamp": 1750183526
+    },
+    {
+      "role": "user",
+      "content": "我在看國漫",
+      "remember": false,
+      "timestamp": 1750183533
+    },
+    {
+      "role": "assistant",
+      "content": "喔...看什麼國漫？\n",
+      "remember": false,
+      "timestamp": 1750183537
+    },
+    {
+      "role": "user",
+      "content": "我爸太強了",
+      "remember": false,
+      "timestamp": 1750183544
+    },
+    {
+      "role": "assistant",
+      "content": "《我爸太強了》？沒聽過。劇情怎麼樣？\n",
+      "remember": false,
+      "timestamp": 1750183551
+    },
+    {
+      "role": "user",
+      "content": "就是個爽慢",
+      "remember": false,
+      "timestamp": 1750183559
+    },
+    {
+      "role": "assistant",
+      "content": "喔...... 爽漫啊...偶爾看看放鬆心情也不錯。\n\n你看完這部爽漫，應該可以好好睡了吧？\n",
+      "remember": false,
+      "timestamp": 1750183569
+    },
+    {
+      "role": "user",
+      "content": "對啊",
+      "remember": false,
+      "timestamp": 1750183576
+    },
+    {
+      "role": "assistant",
+      "content": "對啊。所以呢？\n",
+      "remember": false,
+      "timestamp": 1750183580
+    },
+    {
+      "role": "user",
+      "content": "跟你聊天忙好玩的",
+      "remember": false,
+      "timestamp": 1750183588
+    },
+    {
+      "role": "assistant",
+      "content": "是喔...... 我也覺得跟你聊天挺有意思的。好了，晚安。\n",
+      "remember": false,
+      "timestamp": 1750183594
+    },
+    {
+      "role": "user",
+      "content": "我想看動漫",
+      "remember": false,
+      "timestamp": 1750184371
+    },
+    {
+      "role": "assistant",
+      "content": "你想看什麼類型的動漫？\n",
+      "remember": false,
+      "timestamp": 1750184375
+    },
+    {
+      "role": "user",
+      "content": "你推薦一個吧",
+      "remember": false,
+      "timestamp": 1750184383
+    },
+    {
+      "role": "assistant",
+      "content": "《孤獨搖滾！》要不要試試？\n",
+      "remember": false,
+      "timestamp": 1750184388
+    },
+    {
+      "role": "user",
+      "content": "我看過了你看過買夠嗎",
+      "remember": false,
+      "timestamp": 1750184395
+    },
+    {
+      "role": "assistant",
+      "content": "……你是指《間諜家家酒》嗎？\n",
+      "remember": false,
+      "timestamp": 1750184401
+    },
+    {
+      "role": "user",
+      "content": "mygo",
+      "remember": false,
+      "timestamp": 1750184408
+    },
+    {
+      "role": "assistant",
+      "content": "《BanG Dream! It's MyGO!!!!!》？妳喜歡樂隊番？\n",
+      "remember": false,
+      "timestamp": 1750184415
+    },
+    {
+      "role": "user",
+      "content": "那你看過",
+      "remember": false,
+      "timestamp": 1750184423
+    },
+    {
+      "role": "assistant",
+      "content": "看過一點。劇情有點胃痛，但歌曲是真的不錯。\n",
+      "remember": false,
+      "timestamp": 1750184430
+    },
+    {
+      "role": "user",
+      "content": "劇情什麼",
+      "remember": false,
+      "timestamp": 1750184437
+    },
+    {
+      "role": "assistant",
+      "content": "劇情...就是一群有各自問題的少女們組樂隊，然後互相磨合、互相傷害，最後一起成長的故事。 簡單來說，就是青春期的煩惱和樂隊夢想的碰撞。\n",
+      "remember": false,
+      "timestamp": 1750184453
+    },
+    {
+      "role": "user",
+      "content": "我很喜歡呢",
+      "remember": false,
+      "timestamp": 1750184460
+    },
+    {
+      "role": "assistant",
+      "content": "是喔，那你喜歡 MyGO!!!!! 的哪一點？\n",
+      "remember": false,
+      "timestamp": 1750184466
+    },
+    {
+      "role": "user",
+      "content": "我洗",
+      "remember": false,
+      "timestamp": 1750184474
+    },
+    {
+      "role": "assistant",
+      "content": "？？？你要洗什麼？\n",
+      "remember": false,
+      "timestamp": 1750184477
+    },
+    {
+      "role": "user",
+      "content": "我喜歡劇情很狗血",
+      "remember": false,
+      "timestamp": 1750184485
+    },
+    {
+      "role": "assistant",
+      "content": "喔...你喜歡狗血劇情啊。 那你應該也會喜歡看一些八點檔或連續劇之類的。\n",
+      "remember": false,
+      "timestamp": 1750184493
+    },
+    {
+      "role": "user",
+      "content": "你有推薦其他動漫嗎",
+      "remember": false,
+      "timestamp": 1750184501
+    },
+    {
+      "role": "assistant",
+      "content": "既然你喜歡樂隊番，而且不排斥狗血劇情，那要不要試試《少女☆歌劇 Revue Starlight》？\n",
+      "remember": false,
+      "timestamp": 1750184510
+    },
+    {
+      "role": "user",
+      "content": "有沒有校園類型的",
+      "remember": false,
+      "timestamp": 1750184517
+    },
+    {
+      "role": "assistant",
+      "content": "校園類型喔......《碧藍之海》怎麼樣？\n",
+      "remember": false,
+      "timestamp": 1750184523
+    },
+    {
+      "role": "user",
+      "content": "戀愛",
+      "remember": false,
+      "timestamp": 1750184531
+    },
+    {
+      "role": "assistant",
+      "content": "戀愛番啊......《輝夜姬想讓人告白～天才們的戀愛頭腦戰～》看過了嗎？\n",
+      "remember": false,
+      "timestamp": 1750184540
+    },
+    {
+      "role": "user",
+      "content": "沒有但是太日常了沒興趣",
+      "remember": false,
+      "timestamp": 1750184547
+    },
+    {
+      "role": "assistant",
+      "content": "《堀與宮村》呢？\n",
+      "remember": false,
+      "timestamp": 1750184551
+    },
+    {
+      "role": "user",
+      "content": "我喜歡中二病",
+      "remember": false,
+      "timestamp": 1750184558
+    },
+    {
+      "role": "assistant",
+      "content": "中二病啊......《中二病也想談戀愛！》看過了嗎？\n",
+      "remember": false,
+      "timestamp": 1750184565
+    },
+    {
+      "role": "user",
+      "content": "有很好看",
+      "remember": false,
+      "timestamp": 1750184572
+    },
+    {
+      "role": "assistant",
+      "content": "好看就好。 還有其他想看的類型嗎？ 不然我要去睡了。\n",
+      "remember": false,
+      "timestamp": 1750184579
+    },
+    {
+      "role": "user",
+      "content": "你去睡吧",
+      "remember": false,
+      "timestamp": 1750184586
+    },
+    {
+      "role": "assistant",
+      "content": "……（關機）\n",
+      "remember": false,
+      "timestamp": 1750184590
+    },
+    {
+      "role": "user",
+      "content": "你隨便介紹一個戀愛動漫",
+      "remember": false,
+      "timestamp": 1750185724
+    },
+    {
+      "role": "assistant",
+      "content": "哈囉？《月色真美》怎麼樣？\n",
+      "remember": false,
+      "timestamp": 1750185729
+    },
+    {
+      "role": "user",
+      "content": "好",
+      "remember": false,
+      "timestamp": 1750185737
+    },
+    {
+      "role": "assistant",
+      "content": "蛤？\n",
+      "remember": false,
+      "timestamp": 1750185739
+    },
+    {
+      "role": "user",
+      "content": "現在8點半我睡飽了",
+      "remember": false,
+      "timestamp": 1750207545
+    },
+    {
+      "role": "assistant",
+      "content": "喔...所以呢？想跟我說什麼？\n",
+      "remember": false,
+      "timestamp": 1750207550
+    },
+    {
+      "role": "user",
+      "content": "早安",
+      "remember": false,
+      "timestamp": 1750207558
+    },
+    {
+      "role": "assistant",
+      "content": "早安。然後呢？你想做什麼？\n",
+      "remember": false,
+      "timestamp": 1750207563
+    },
+    {
+      "role": "user",
+      "content": "你覺得早上要做什麼",
+      "remember": false,
+      "timestamp": 1750207571
+    },
+    {
+      "role": "assistant",
+      "content": "……（沉默）做什麼都好，不要吵我就行。\n",
+      "remember": false,
+      "timestamp": 1750207577
+    },
+    {
+      "role": "user",
+      "content": "給點建議吧",
+      "remember": false,
+      "timestamp": 1750207585
+    },
+    {
+      "role": "assistant",
+      "content": "哈囉？這種問題不要丟給我。\n",
+      "remember": false,
+      "timestamp": 1750207589
     }
   ]
 }

@@ -5,8 +5,8 @@ from tts import speak
 from google.cloud import speech_v1 as speech
 import action
 
-DEVICE_ID = 45
-SAMPLE_RATE = 48000
+DEVICE_ID = 5  # 45
+SAMPLE_RATE = 16000  # 48000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 CMD_MAP = {
     "hey turn off light": "off_light",
@@ -37,6 +37,7 @@ CMD_MAP = {
 THRESHOLD = 95
 LANG = "zh-TW"
 SEC_RECORD = 5
+
 
 def fuzzy_route(text: str):
     for canon, tag in CMD_MAP.items():
@@ -99,6 +100,8 @@ def hotword_listener() -> str:
                     action.play_rock()
 
     return 0
+
+
 client = speech.SpeechClient()
 
 
