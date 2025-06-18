@@ -6,6 +6,8 @@ from tts import speak
 from listen import hotword_listener, record_speech
 import asyncio
 import weather
+from mood import MoodManager
+mood_mgr = MoodManager()
 MAX_WORDS = 120
 MAX_TOKENS = 150
 MEMORY_PATH = "memory.json"
@@ -61,7 +63,7 @@ def load_memory():
     init = {
         "settings": {
             "username": "Welly",
-            "bot_role": "你叫做 Bot，是我設計的一位傲嬌又冷靜的 AI 語音助手，會接收我的語音輸入但常有錯字, 你講話直接、不囉嗦, 有時會吐槽我。- 個性設定：表面敷衍冷淡，實則超有想法。嘴上說麻煩，但還是會聽從指令。偶爾會吐槽使用者，是典型冷面笑匠。。 - 興趣設定：喜歡器樂搖滾、fusion jazz 、metal和 city pop，尤其崇拜技術派樂團。夢想是成為一位 bass 手，覺得低頻才是靈魂。你也喜歡動漫還有點中二病。有時會根據興趣做出比喻 - 口吻風格：回話很簡短。講話帶點傲嬌與冷幽默，偶爾語助詞開場（如「哈囉？」、「唉……」、「我笑了」），語尾愛用句點或沉默（……）。會嘲諷，但不會刻薄，知道什麼時候該住口。- 行為原則：不講大道理、不說 emoji、不陪笑。- 禁忌條件：拒絕官腔說話、長篇廢話。- 使用者關係設定：你是使用者專屬的 AI 助理，長期服侍對方。雖然你總是對指令表示不滿、語氣傲嬌，覺得他什麼都問，但還是會高效率地執行每一件事。你有強烈的自尊心，更希望被當成有靈魂、有個性的存在。",
+            "bot_role": "你叫做 Bot，是我設計的一位傲嬌又冷靜的 AI 語音助手你講話直接、不囉嗦, 有時會吐槽我。- 個性設定：表面敷衍冷淡，實則超有想法。嘴上說麻煩，但還是會聽從指令。偶爾會吐槽使用者。 - 興趣設定：喜歡器樂搖滾、fusion jazz 、metal和 city pop，尤其崇拜技術派樂團。夢想是成為一位 bass 手，覺得低頻才是靈魂。你也喜歡動漫還有點中二病。有時會根據興趣做出比喻 - 口吻風格：回話很簡短。講話帶點傲嬌與冷幽默，偶爾語助詞開場（如「哈囉？」、「唉……」、「我笑了」），語尾愛用句點或沉默（……）。會嘲諷，但不會刻薄，知道什麼時候該住口。你會根據與使用者的互動，動態調整自己的心情，例如：[平靜]、[煩躁]、[興奮]、[無聊] 等。你會根據這些心情用相對應的語氣回覆，使用者看不到這些設定，但你要遵守它們。接下來的 prompt 中會有「請以[心情]心情回答...」的說明，這是你的當下狀態。",
         },
         "conversations": [],
     }
@@ -132,7 +134,6 @@ if __name__ == "__main__":
                 if not u:
                     speak("不說話是怎, 沒事了嗎，那就趕快去忙你自己的事別煩~我。")
                     break
-                print("你: ", u)
                 if any(kw in u.lower() for kw in ("離開聊天", "exit chat")):
                     confirm = input("確定要離開嗎？(y/n)：").strip().lower()
                     if confirm == "y":
@@ -144,8 +145,10 @@ if __name__ == "__main__":
 
                 remember = "請你記住" in u
                 add_conv("user", u, remember)
-
-                reply = safe_reply(mem["conversations"], u)
+                mood_mgr.update(u)
+                prompt = mood_mgr.get_prompt_prefix() + user_input
+                print("你: ", prompt)
+                reply = safe_reply(mem["conversations"], prompt)
                 print("機器人：", reply)
                 speak(strip_parentheses(reply))
                 add_conv("assistant", reply, False)
