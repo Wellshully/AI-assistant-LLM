@@ -5,10 +5,14 @@ from tts import speak
 from google.cloud import speech_v1 as speech
 import action
 
-DEVICE_ID = 45  # 5
-SAMPLE_RATE = 48000  # 16000
+DEVICE_ID = 5  # 5
+SAMPLE_RATE = 16000  # 16000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 CMD_MAP = {
+    "light up": "on_light",
+    "light on": "on_light",
+    "light off": "off_light",
+    "like of": "off_light",
     "hey turn off light": "off_light",
     "hey like off": "off_light",
     "hey light of": "off_light",
@@ -23,6 +27,7 @@ CMD_MAP = {
     "hey light on": "on_light",
     "hey night on": "on_light",
     "hey like on": "on_light",
+    "hey light up": "on_light",
     "hey shut down my pc": "pc_off",
     "hey listen": "llm",
     "hey open mail": "open_mail",
@@ -35,7 +40,7 @@ CMD_MAP = {
     "hey pass": "type_pass",
 }
 
-THRESHOLD = 95
+THRESHOLD = 90
 LANG = "zh-TW"
 SEC_RECORD = 5
 
@@ -100,7 +105,7 @@ def hotword_listener() -> str:
                 elif tag == "play_rock":
                     action.play_rock()
                 elif tag == "type_pass":
-                    action.type_pass() 
+                    action.type_pass()
 
     return 0
 
