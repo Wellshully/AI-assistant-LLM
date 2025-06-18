@@ -2,14 +2,14 @@ from elevenlabs.client import ElevenLabs
 from elevenlabs import play
 import os
 import hashlib
-
-_11 = ElevenLabs(api_key="sk_6aea8b24cef93bd18a8c965c8486e39d85076ee9c32661a1")
+import config
+_11 = ElevenLabs(api_key=config.ELE_API)
 # female: hkfHEbBvdQFNX4uWHqRF
 # male: fQj4gJSexpu8RDE2Ii5m
-VOICE_ID = "hkfHEbBvdQFNX4uWHqRF"
-MODEL_ID = "eleven_flash_v2_5"
-BASE_SETTINGS = {"stability": 0.95, "similarity_boost": 0.85, "speed": 1.0}
-CACHE_DIR = "tts_cache"
+VOICE_ID = config.VOICE_ID
+MODEL_ID = config.MODEL_ID
+BASE_SETTINGS = config.BASE_SETTINGS
+CACHE_DIR = config.CACHE_DIR
 os.makedirs(CACHE_DIR, exist_ok=True)
 
 

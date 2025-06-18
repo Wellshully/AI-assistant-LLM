@@ -4,45 +4,14 @@ from rapidfuzz import fuzz
 from tts import speak
 from google.cloud import speech_v1 as speech
 import action
-
-DEVICE_ID = 5  # 5
-SAMPLE_RATE = 16000  # 16000
-MODEL_PATH = "models/vosk-model-small-en-us-0.15"
-CMD_MAP = {
-    "light up": "on_light",
-    "light on": "on_light",
-    "light off": "off_light",
-    "like of": "off_light",
-    "hey turn off light": "off_light",
-    "hey like off": "off_light",
-    "hey light of": "off_light",
-    "hey night of": "off_light",
-    "hey night oof": "off_light",
-    "hey laid off": "off_light",
-    "hey light off": "off_light",
-    "hey lied off": "off_light",
-    "hey turn on light": "on_light",
-    "hey like oh": "on_light",
-    "hey lied on": "on_light",
-    "hey light on": "on_light",
-    "hey night on": "on_light",
-    "hey like on": "on_light",
-    "hey light up": "on_light",
-    "hey shut down my pc": "pc_off",
-    "hey listen": "llm",
-    "hey open mail": "open_mail",
-    "hey open cs": "open_cs",
-    "hey open seas": "open_cs",
-    "hey play rock": "play_rock",
-    "hey open you tube": "open_youtube",
-    "hey open you too": "open_youtube",
-    "hey weather": "weather",
-    "hey pass": "type_pass",
-}
-
-THRESHOLD = 90
-LANG = "zh-TW"
-SEC_RECORD = 5
+import config
+DEVICE_ID = config.DEVICE_ID  # 5
+SAMPLE_RATE = config.SAMPLE_RATE  # 16000
+MODEL_PATH = config.MODEL_PATH
+CMD_MAP = config.CMD_MAP
+THRESHOLD = config.THRESHOLD
+LANG = config.LANG
+SEC_RECORD = config.SEC_RECORD
 
 
 def fuzzy_route(text: str):

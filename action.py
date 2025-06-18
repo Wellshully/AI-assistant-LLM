@@ -5,11 +5,12 @@ from bleak import BleakClient
 import subprocess
 import time, os
 import weather
-REMOTE_USER = "welly"
-REMOTE_HOST = "192.168.66.14"
-BOT_MAC = "EE:2E:05:86:36:8D"
-WRITE_CHAR_UUID = "cba20002-224d-11e6-9fb8-0002a5d5c51b"
-PASS = "Zxc9249258852xc"
+import config
+REMOTE_USER = config.REMOTE_USER
+REMOTE_HOST = config.REMOTE_HOST
+BOT_MAC = config.BOT_MAC
+WRITE_CHAR_UUID = config.WRITE_CHAR_UUID
+PASS = config.PASS
 
 def ssh_exec(bat_filename: str):
     cmd = f'ssh {REMOTE_USER}@{REMOTE_HOST} "{bat_filename}"'

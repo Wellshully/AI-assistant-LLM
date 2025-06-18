@@ -1,9 +1,9 @@
 import requests
 from datetime import datetime,timedelta
-
-API_KEY = "CWA-9544C8F6-2267-4106-8246-78B0980BE9CB"
-location_name = "臺北市"
-target_area = "內湖區"
+import config
+API_KEY = config.WEA_API
+location_name = config.location_name
+target_area = config.target_area
 
 def fetch_weather():
     url = (

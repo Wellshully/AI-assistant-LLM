@@ -7,14 +7,15 @@ from listen import hotword_listener, record_speech
 import asyncio
 import weather
 from mood import MoodManager
+import config
 mood_mgr = MoodManager()
-MAX_WORDS = 120
-MAX_TOKENS = 150
-MEMORY_PATH = "memory.json"
-MAX_SIZE = 5 * 1024 * 1024
+MAX_WORDS = config.MAX_WORDS
+MAX_TOKENS = config.MAX_TOKENS
+MEMORY_PATH = config.MEMORY_PATH
+MAX_SIZE = config.MAX_SIZE
 client = genai.Client(
     http_options=HttpOptions(api_version="v1beta"),
-    api_key="AIzaSyDEwTDG5ul6RGCoVIamkn7FtCfm4XFOAX8",
+    api_key=config.GEMINI_API,
 )
 
 import re
@@ -117,7 +118,7 @@ if __name__ == "__main__":
     print(
         "🎤 語音模式已啟動：............."
     )
-
+    
     while True:
         w = hotword_listener()
         if w:
@@ -146,7 +147,7 @@ if __name__ == "__main__":
                 remember = "請你記住" in u
                 add_conv("user", u, remember)
                 mood_mgr.update(u)
-                prompt = mood_mgr.get_prompt_prefix() + user_input
+                prompt = mood_mgr.get_prompt_prefix() + u
                 print("你: ", prompt)
                 reply = safe_reply(mem["conversations"], prompt)
                 print("機器人：", reply)
