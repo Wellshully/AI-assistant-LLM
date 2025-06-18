@@ -5,8 +5,8 @@ from tts import speak
 from google.cloud import speech_v1 as speech
 import action
 
-DEVICE_ID = 5  # 45
-SAMPLE_RATE = 16000  # 48000
+DEVICE_ID = 45  # 5
+SAMPLE_RATE = 48000  # 16000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 CMD_MAP = {
     "hey turn off light": "off_light",
@@ -32,6 +32,7 @@ CMD_MAP = {
     "hey open you tube": "open_youtube",
     "hey open you too": "open_youtube",
     "hey weather": "weather",
+    "hey pass": "type_pass",
 }
 
 THRESHOLD = 95
@@ -98,6 +99,8 @@ def hotword_listener() -> str:
                     action.open_mail()
                 elif tag == "play_rock":
                     action.play_rock()
+                elif tag == "type_pass":
+                    action.type_pass() 
 
     return 0
 

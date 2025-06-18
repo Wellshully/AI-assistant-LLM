@@ -9,7 +9,7 @@ REMOTE_USER = "welly"
 REMOTE_HOST = "192.168.66.14"
 BOT_MAC = "EE:2E:05:86:36:8D"
 WRITE_CHAR_UUID = "cba20002-224d-11e6-9fb8-0002a5d5c51b"
-
+PASS = "Zxc9249258852xc"
 
 def ssh_exec(bat_filename: str):
     cmd = f'ssh {REMOTE_USER}@{REMOTE_HOST} "{bat_filename}"'
@@ -47,8 +47,9 @@ def do_light(on: bool):
 
     threading.Thread(target=lambda: asyncio.run(ble_send()), daemon=True).start()
     speak("開燈。" if on else "關燈。")
-
-
+def type_pass():
+    script_path = r"bot_type.sh"
+    subprocess.Popen(["bash", script_path, PASS])
 def chat_mode():
     speak("幹嘛阿, 有啥事阿~~沒事別叫我")
 
