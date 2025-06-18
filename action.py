@@ -43,18 +43,17 @@ def do_light(on: bool):
                 print("✅ BLE 指令送出")
         except Exception as e:
             print("❌ BLE 控制失敗:", e)
-            speak("機器人失聯啦你去檢查一下")
 
     threading.Thread(target=lambda: asyncio.run(ble_send()), daemon=True).start()
-    speak("開燈。" if on else "關燈。")
+    speak("開燈。" if on else "關燈。", local=True)
 def type_pass():
     script_path = r"bot_type.sh"
     subprocess.Popen(["bash", script_path, PASS])
 def chat_mode():
-    speak("幹嘛阿, 有啥事阿~~沒事別叫我")
+    speak("幹嘛阿, 有啥事阿~~", local=True)
 
 def do_shutdown():
     print("[ACTION] Shutdown PC")
-    speak("我設定8秒後關機...... 你是不會自己關嗎...")
+    speak("我設定8秒後關機...... 你是不會自己關嗎...", local=True)
     time.sleep(8)
     os.system('ssh welly@192.168.66.14 "shutdown /s /t 10"')
