@@ -10,8 +10,8 @@ CACHE_DIR = "tts_cache"
 # Gemini client 設定
 GEMINI_API = "AIzaSyDEwTDG5ul6RGCoVIamkn7FtCfm4XFOAX8"
 # 語音辨識與語音控制
-DEVICE_ID = 5
-SAMPLE_RATE = 16000
+DEVICE_ID = 45
+SAMPLE_RATE = 48000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 
 # 語音指令對應表
