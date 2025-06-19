@@ -1,5 +1,5 @@
 # config.py
-
+PC_MAC="04:7C:16:0C:E0:5D"
 # 語音與語音生成設定
 ELE_API = "sk_6aea8b24cef93bd18a8c965c8486e39d85076ee9c32661a1"
 VOICE_ID = "hkfHEbBvdQFNX4uWHqRF"
@@ -49,7 +49,7 @@ CMD_MAP = {
 }
 
 # 語意與語音參數
-MAX_WORDS = 150
+MAX_WORDS = 200
 MAX_TOKENS = 150
 THRESHOLD = 90
 LANG = "zh-TW"
