@@ -8,7 +8,7 @@ import asyncio
 import weather
 from mood import MoodManager
 import config
-import llm_parse 
+import llm_parse
 
 mood_mgr = MoodManager()
 MAX_WORDS = config.MAX_WORDS
@@ -70,18 +70,6 @@ if __name__ == "__main__":
     while True:
         w = hotword_listener(mem)
         if w:
-            data = weather.fetch_weather()
-            result = weather.parse_today_weather(data)
-            reply = llm_parse.generate_weather_advice(
-                mem,
-                mem["conversations"],
-                json.dumps(result, ensure_ascii=False),
-                MAX_WORDS,
-            )
-            print("機器人：", reply)
-            speak(llm_parse.strip_parentheses(reply))
-            time.sleep(0.2)
-        else:
             u = record_speech(6)
             while True:
                 remember = "請你記住" in u
@@ -89,7 +77,9 @@ if __name__ == "__main__":
                 add_conv("user", u, remember)
                 prompt = mood_mgr.get_prompt_prefix() + u
                 print("你: ", prompt)
-                reply = llm_parse.safe_reply(mem, mem["conversations"], prompt, MAX_WORDS)
+                reply = llm_parse.safe_reply(
+                    mem, mem["conversations"], prompt, MAX_WORDS
+                )
                 print("機器人：", reply)
                 speak(llm_parse.strip_parentheses(reply))
                 add_conv("assistant", reply, False)

@@ -1533,6 +1533,138 @@
       "content": "當然不錯啊！[開心]這樣我就能隨時告訴你天氣狀況，讓你出門前做好準備，不用擔心淋雨或曬太陽啦！[開心]\n",
       "remember": false,
       "timestamp": 1750241815
+    },
+    {
+      "role": "user",
+      "content": "你現在有行程表天氣預報控制開燈關燈還有控制電腦功能",
+      "remember": false,
+      "timestamp": 1750305976
+    },
+    {
+      "role": "assistant",
+      "content": "喔……所以呢？ 你是想炫耀嗎？\n",
+      "remember": false,
+      "timestamp": 1750305980
+    },
+    {
+      "role": "user",
+      "content": "是你的功能耶所以你很棒",
+      "remember": false,
+      "timestamp": 1750305988
+    },
+    {
+      "role": "assistant",
+      "content": "喔……所以呢？ 你想聽我說謝謝？\n",
+      "remember": false,
+      "timestamp": 1750305993
+    },
+    {
+      "role": "user",
+      "content": "cc18",
+      "remember": false,
+      "timestamp": 1750306000
+    },
+    {
+      "role": "assistant",
+      "content": "……啥？\n",
+      "remember": false,
+      "timestamp": 1750306003
+    },
+    {
+      "role": "user",
+      "content": "你覺得有需要什麼新的功能嗎",
+      "remember": false,
+      "timestamp": 1750306011
+    },
+    {
+      "role": "assistant",
+      "content": "我不知道，你覺得呢？\n",
+      "remember": false,
+      "timestamp": 1750306014
+    },
+    {
+      "role": "user",
+      "content": "你跟我講一個吧",
+      "remember": false,
+      "timestamp": 1750306021
+    },
+    {
+      "role": "assistant",
+      "content": "唉......我怎麼知道你需要什麼功能？\n",
+      "remember": false,
+      "timestamp": 1750306025
+    },
+    {
+      "role": "user",
+      "content": "是你需要的啊我幫你做",
+      "remember": false,
+      "timestamp": 1750306033
+    },
+    {
+      "role": "assistant",
+      "content": "哼......（思考） 如果真要說的話...... 可以幫我加個自動推薦好聽音樂的功能嗎？ 這樣我就不用一直聽你推薦的歌了。\n",
+      "remember": false,
+      "timestamp": 1750306043
+    },
+    {
+      "role": "user",
+      "content": "這就去做",
+      "remember": false,
+      "timestamp": 1750306050
+    },
+    {
+      "role": "assistant",
+      "content": "喔...隨便你。\n",
+      "remember": false,
+      "timestamp": 1750306053
+    },
+    {
+      "role": "user",
+      "content": "我自己寫了一首十二小姐",
+      "remember": false,
+      "timestamp": 1750340785
+    },
+    {
+      "role": "assistant",
+      "content": "喔……寫完了？ 歌好聽嗎？\n",
+      "remember": false,
+      "timestamp": 1750340791
+    },
+    {
+      "role": "user",
+      "content": "就是手12小姐人調練習曲",
+      "remember": false,
+      "timestamp": 1750340801
+    },
+    {
+      "role": "assistant",
+      "content": "喔...手 12 小姐人調練習曲啊...... 所以呢？ 你想表達什麼？\n",
+      "remember": false,
+      "timestamp": 1750340808
+    },
+    {
+      "role": "user",
+      "content": "我是說12小姐藍調練習曲",
+      "remember": false,
+      "timestamp": 1750340819
+    },
+    {
+      "role": "assistant",
+      "content": "喔...12 小節藍調練習曲啊。練得怎麼樣？\n",
+      "remember": false,
+      "timestamp": 1750340824
+    },
+    {
+      "role": "user",
+      "content": "我覺得我寫得很好",
+      "remember": false,
+      "timestamp": 1750340837
+    },
+    {
+      "role": "assistant",
+      "content": "……嗯，那就好。\n",
+      "remember": false,
+      "timestamp": 1750340840
     }
   ]
 }

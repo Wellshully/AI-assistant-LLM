@@ -17,6 +17,7 @@ def add_event(summary, start_dt, end_dt, timezone="Asia/Taipei"):
     print(f"新增行程成功，ID: {created_event['id']}")
     return created_event
 
+
 def delete_event_by_keyword(date_obj, keyword, timezone="Asia/Taipei"):
     events = list_events_for_day(date_obj, timezone)
     matched = [e for e in events if keyword in e.get("summary", "")]
@@ -29,7 +30,8 @@ def delete_event_by_keyword(date_obj, keyword, timezone="Asia/Taipei"):
         service.events().delete(calendarId="primary", eventId=event_id).execute()
         print(f"已刪除行程：{summary}（ID: {event_id}）")
     return True
-    
+
+
 def list_events_for_period(start_datetime, end_datetime, timezone="Asia/Taipei"):
     tz = pytz.timezone(timezone)
     if start_datetime.tzinfo is None:
@@ -50,7 +52,8 @@ def list_events_for_period(start_datetime, end_datetime, timezone="Asia/Taipei")
     )
 
     events = events_result.get("items", [])
-    return format_events_output(events, start_datetime, end_datetime)
+    return events
+    # return format_events_output(events, start_datetime, end_datetime)
 
 
 def format_events_output(events, start_datetime, end_datetime, timezone="Asia/Taipei"):
@@ -59,29 +62,27 @@ def format_events_output(events, start_datetime, end_datetime, timezone="Asia/Ta
         start_datetime = tz.localize(start_datetime)
     if end_datetime.tzinfo is None:
         end_datetime = tz.localize(end_datetime)
-        
+
     if not events:
         return f"{start_datetime.date()} 至 {end_datetime.date()} 沒有行程"
     else:
         lines = [f"{start_datetime.date()} 至 {end_datetime.date()} 的行程:"]
         for event in events:
             start = event["start"].get("dateTime", event["start"].get("date"))
-            summary = event.get('summary', '無標題')
+            summary = event.get("summary", "無標題")
             lines.append(f"- {start} {summary}")
         return "\n".join(lines)
 
-        
+
 def list_events_for_day(date, timezone="Asia/Taipei"):
-    tz = pytz.timezone(timezone)
     start_of_day = datetime.combine(date, datetime.min.time())
     end_of_day = start_of_day + timedelta(days=1)
     return list_events_for_period(start_of_day, end_of_day, timezone)
 
 
 def list_events_for_week(start_date, end_date, timezone="Asia/Taipei"):
-    tz = pytz.timezone(timezone)
     start_of_week = datetime.combine(start_date, datetime.min.time())
-    end_of_week = datetime.combine(end_date + timedelta(days=1), datetime.min.time())  # 包含最後一天整天
+    end_of_week = datetime.combine(end_date + timedelta(days=1), datetime.min.time())
     return list_events_for_period(start_of_week, end_of_week, timezone)
 
 

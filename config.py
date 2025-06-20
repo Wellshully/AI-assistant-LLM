@@ -1,5 +1,5 @@
 # config.py
-PC_MAC="04:7C:16:0C:E0:5D"
+PC_MAC = "04:7C:16:0C:E0:5D"
 # 語音與語音生成設定
 ELE_API = "sk_6aea8b24cef93bd18a8c965c8486e39d85076ee9c32661a1"
 VOICE_ID = "hkfHEbBvdQFNX4uWHqRF"
@@ -10,8 +10,8 @@ CACHE_DIR = "tts_cache"
 # Gemini client 設定
 GEMINI_API = "AIzaSyDEwTDG5ul6RGCoVIamkn7FtCfm4XFOAX8"
 # 語音辨識與語音控制
-DEVICE_ID = 45
-SAMPLE_RATE = 48000
+DEVICE_ID = 5
+SAMPLE_RATE = 16000
 MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 
 # 語音指令對應表
@@ -36,7 +36,8 @@ CMD_MAP = {
     "hey night on": "on_light",
     "hey like on": "on_light",
     "hey light up": "on_light",
-    "hey shut down my pc": "pc_off",
+    "hey shut down pc": "pc_off",
+    "hey wake up pc": "pc_on",
     "hey listen": "llm",
     "hey open mail": "open_mail",
     "hey open cs": "open_cs",

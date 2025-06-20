@@ -46,7 +46,7 @@ def hotword_listener(mem) -> str:
         channels=1,
         blocksize=8000,
         callback=_cb,
-    ):
+    ) as stream:
         while True:
             data = q.get()
             if recognizer.AcceptWaveform(data):
@@ -61,6 +61,8 @@ def hotword_listener(mem) -> str:
                     action.do_light(True)
                 elif tag == "pc_off":
                     action.do_shutdown()
+                elif tag == "pc_on":
+                    action.do_power_on()
                 elif tag == "open_youtube":
                     action.open_yt("https://www.youtube.com")
                 elif tag == "open_cs":
@@ -72,13 +74,15 @@ def hotword_listener(mem) -> str:
                 elif tag == "type_pass":
                     action.type_pass()
                 elif tag == "schedule":
+                    stream.close()
                     action.schedule_manager(mem)
+                    return 0
                 elif tag == "llm":
                     internet = action.chat_mode()
                     if internet:
-                        return 0
+                        return 1
                 elif tag == "weather":
-                    return 1
+                    action.weather_report(mem)
 
     return 0
 
