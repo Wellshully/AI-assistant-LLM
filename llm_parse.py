@@ -128,3 +128,43 @@ def parse_event_request(user_input: str, now: datetime):
         if event_json[key] in [None, ""]:
             return None
     return event_json
+def parse_alarm_request(user_input: str, now: datetime):
+    now_str = now.strftime("%Y-%m-%d %H:%M:%S")
+    prompt = f"""你是一個鬧鐘助理。請根據使用者說的話，解析出一個鬧鐘事件。只輸出 JSON 格式，欄位如下：
+                - type: 固定為 "alarm"
+                - time: ISO 格式（例如 2025-06-25T15:00:00）
+                - msg: 鬧鐘響起時你要對我說的提示文字（例如：「你要出門了」、「你上課快開始了」）
+                - tag: 可選，為 "wake_up" 表示起床鬧鐘，"sleep" 表示睡覺提醒，其餘情況為空字串。
+                今天是 {now_str}。請理解「明天早上七點」、「五分鐘後提醒」、「我要睡覺」這些模糊語意，轉換為時間和標籤。tag 只有明確起床或睡覺用途時才填入。
+                不要補充說明，只輸出 JSON 格式。
+
+                使用者說：「{user_input}」
+                """
+
+    response = client.models.generate_content(
+        model="gemini-2.0-flash-001",
+        contents=[{"role": "user", "parts": [{"text": prompt}]}],
+        config=types.GenerateContentConfig(
+            system_instruction="你是專門將自然語言轉換為鬧鐘事件格式的解析器。",
+            max_output_tokens=256,
+        ),
+    )
+
+    raw = response.text.strip()
+    json_match = re.search(r"\{[\s\S]*\}", raw)
+    if not json_match:
+        return None
+
+    try:
+        alarm_data = json.loads(json_match.group())
+        if alarm_data.get("type") != "alarm":
+            return None
+        if not alarm_data.get("time") or not alarm_data.get("msg"):
+            return None
+        alarm_data["time"] = datetime.fromisoformat(alarm_data["time"])
+        if "tag" not in alarm_data:
+            alarm_data["tag"] = ""
+        return alarm_data
+    except Exception as e:
+        print("[ERROR] JSON parsing failed:", e)
+        return None

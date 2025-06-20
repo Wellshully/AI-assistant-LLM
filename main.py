@@ -1,4 +1,4 @@
-import os, json, time
+import os, sys, json, time
 from google import genai
 from google.genai import types
 from google.genai.types import HttpOptions
@@ -9,13 +9,34 @@ import weather
 from mood import MoodManager
 import config
 import llm_parse
-
+import threading
+import signal
+import action
 mood_mgr = MoodManager()
 MAX_WORDS = config.MAX_WORDS
 MEMORY_PATH = config.MEMORY_PATH
 MAX_SIZE = config.MAX_SIZE
 
+STOP_EVENT = threading.Event()
+def _graceful_exit(signum, frame):
+    print("\n[INFO] 收到終止訊號，準備退出…")
+    STOP_EVENT.set()         
+    try:
+        if getattr(action, "_ble", None):
+            action._ble.stop()            
+    except Exception as e:
+        print("[WARN] 關 BLE 失敗:", e)
 
+    try:
+        import sounddevice as sd
+        sd.stop()               
+    except Exception:
+        pass
+
+    sys.exit(0)
+
+signal.signal(signal.SIGINT,  _graceful_exit)   # Ctrl-C
+signal.signal(signal.SIGTERM, _graceful_exit)
 def load_memory():
     if os.path.exists(MEMORY_PATH):
         return json.load(open(MEMORY_PATH, "r", encoding="utf-8"))
@@ -65,13 +86,13 @@ def add_conv(role, content, remember=False):
 
 if __name__ == "__main__":
     mem = load_memory()
-    print("🎤 語音模式已啟動：.............")
-
-    while True:
+    threading.Thread(target=action.event_checker, daemon=True).start()
+    print("[已啟動]")
+    while not STOP_EVENT.is_set():
         w = hotword_listener(mem)
         if w:
             u = record_speech(6)
-            while True:
+            while not STOP_EVENT.is_set():
                 remember = "請你記住" in u
                 mood_mgr.update(u)
                 add_conv("user", u, remember)

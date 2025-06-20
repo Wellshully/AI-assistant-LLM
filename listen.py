@@ -1,42 +1,42 @@
-import sounddevice as sd, soundfile as sf, queue, json, sys, tempfile, os, time, numpy as np
+# listen.py
+import sounddevice as sd, soundfile as sf, queue, json, sys, tempfile, os, time
+import numpy as np
 from vosk import Model, KaldiRecognizer, SetLogLevel
 from rapidfuzz import fuzz
 from tts import speak
 from google.cloud import speech_v1 as speech
-import action
-import config
+import action, config
 
-DEVICE_ID = config.DEVICE_ID  # 5
-SAMPLE_RATE = config.SAMPLE_RATE  # 16000
-MODEL_PATH = config.MODEL_PATH
-CMD_MAP = config.CMD_MAP
-THRESHOLD = config.THRESHOLD
-LANG = config.LANG
-SEC_RECORD = config.SEC_RECORD
+# ---------------- global ----------------
+DEVICE_ID   = config.DEVICE_ID
+SAMPLE_RATE = config.SAMPLE_RATE      
+MODEL_PATH  = config.MODEL_PATH
+CMD_MAP     = config.CMD_MAP
+THRESHOLD   = config.THRESHOLD
+LANG        = config.LANG
+SEC_RECORD  = config.SEC_RECORD
 
+# ---- ① Vosk Model / Recognizer  ----
+SetLogLevel(-1)                          
+_VOSK_MODEL = Model(MODEL_PATH)
+_RECO = KaldiRecognizer(_VOSK_MODEL, SAMPLE_RATE)
+_RECO.SetPartialWords(True)
 
+# ------------------------------------------------
 def fuzzy_route(text: str):
     for canon, tag in CMD_MAP.items():
         if fuzz.ratio(text, canon) >= THRESHOLD:
             return tag
     return None
 
+def hotword_listener(mem) -> int:
 
-# ---------- 主函式 ----------
-def hotword_listener(mem) -> str:
-    # Vosk
-    SetLogLevel(-1)
-    model = Model(MODEL_PATH)
-    recognizer = KaldiRecognizer(model, SAMPLE_RATE)
-    recognizer.SetPartialWords(True)
-
-    # PortAudio stream
-    q = queue.Queue()
+    q_audio = queue.Queue()
 
     def _cb(indata, frames, t, status):
         if status:
             print(status, file=sys.stderr)
-        q.put(bytes(indata))
+        q_audio.put(bytes(indata))
 
     sd.default.device = (DEVICE_ID, None)
     with sd.RawInputStream(
@@ -46,14 +46,19 @@ def hotword_listener(mem) -> str:
         channels=1,
         blocksize=8000,
         callback=_cb,
-    ) as stream:
+    ):
         while True:
-            data = q.get()
-            if recognizer.AcceptWaveform(data):
-                txt = json.loads(recognizer.Result())["text"]
-                print("🎤 Listening: ", txt)
+            try:
+                data = q_audio.get(timeout=0.1)  
+            except queue.Empty:
+                continue
+
+            if _RECO.AcceptWaveform(data):
+                txt = json.loads(_RECO.Result())["text"]
+                print("🎤 Listening:", txt)
                 if not txt:
                     continue
+
                 tag = fuzzy_route(txt.lower())
                 if tag == "off_light":
                     action.do_light(False)
@@ -73,22 +78,22 @@ def hotword_listener(mem) -> str:
                     action.play_rock()
                 elif tag == "type_pass":
                     action.type_pass()
+                elif tag == "set_alarm":
+                    action.set_alarm()
+                    return 0
                 elif tag == "schedule":
-                    stream.close()
                     action.schedule_manager(mem)
                     return 0
                 elif tag == "llm":
-                    internet = action.chat_mode()
-                    if internet:
+                    if action.chat_mode():
                         return 1
                 elif tag == "weather":
                     action.weather_report(mem)
 
     return 0
 
-
-client = speech.SpeechClient()
-
+# ---------------- Google Speech (record) ----------------
+_client = speech.SpeechClient()
 
 def record_speech(sec: int = SEC_RECORD) -> str:
     print(f"🎙️  錄音 {sec} 秒…")
@@ -101,30 +106,23 @@ def record_speech(sec: int = SEC_RECORD) -> str:
     )
     sd.wait()
 
-    # 轉成 wav bytes
     with tempfile.NamedTemporaryFile(suffix=".wav") as tmp:
         sf.write(tmp, audio, SAMPLE_RATE, format="WAV", subtype="PCM_16")
         tmp.seek(0)
         wav_bytes = tmp.read()
 
-    # ---- v1 同步辨識：使用 content=bytes ---------------------
-    print("sending to recog....")
-    config = speech.RecognitionConfig(
+    recog_cfg = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=SAMPLE_RATE,
         language_code=LANG,
     )
     audio_obj = speech.RecognitionAudio(content=wav_bytes)
-    response = client.recognize(config=config, audio=audio_obj)
-    # ----------------------------------------------------------
+    resp = _client.recognize(config=recog_cfg, audio=audio_obj)
 
-    if not response.results:
+    if not resp.results:
         return ""
-    return response.results[0].alternatives[0].transcript.strip()
-
+    return resp.results[0].alternatives[0].transcript.strip()
 
 if __name__ == "__main__":
-    info = sd.query_devices(DEVICE_ID, "input")
-    print(info)
-
-    hotword_listener()
+    print(sd.query_devices(DEVICE_ID, "input"))
+    hotword_listener({})

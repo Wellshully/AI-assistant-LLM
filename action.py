@@ -1,4 +1,5 @@
 from tts import speak
+from ble_worker import BLEWorker
 import threading
 import asyncio
 from bleak import BleakClient
@@ -10,6 +11,7 @@ import pytz
 import calendar_api
 import llm_parse
 import wol
+import pygame
 from datetime import datetime, timedelta
 
 REMOTE_USER = config.REMOTE_USER
@@ -18,8 +20,37 @@ BOT_MAC = config.BOT_MAC
 WRITE_CHAR_UUID = config.WRITE_CHAR_UUID
 PASS = config.PASS
 MAX_WORDS = config.MAX_WORDS
+_ble = BLEWorker(BOT_MAC, WRITE_CHAR_UUID)
+events = []
 
+def add_event(event):
+    events.append(event)
 
+def event_checker():
+    while True:
+        try:
+            now = datetime.now()
+            to_remove = []
+            for e in events:
+                if now >= e["time"]:
+                    tag = e.get("tag", "")
+                    print(e["msg"])
+                    msg_alarm="注意注意!!" + e["msg"]
+                    speak(msg_alarm)
+                    time.sleep(1)
+                    if tag == "wake_up":
+                        do_light(True)
+                        pygame.mixer.init()
+                        pygame.mixer.music.load("downloads/morning.mp3")
+                        pygame.mixer.music.play()
+                    elif tag == "sleep":
+                        do_light(False)
+                    to_remove.append(e)
+            for e in to_remove:
+                events.remove(e)
+            time.sleep(5)
+        except Exception as e:
+            print("[ERROR in event_checker]:", e)
 def ssh_exec(bat_filename: str):
     cmd = f'ssh {REMOTE_USER}@{REMOTE_HOST} "{bat_filename}"'
     subprocess.run(cmd, shell=True)
@@ -43,17 +74,11 @@ def open_mail():
 
 def do_light(on: bool):
     print("[ACTION]", "開燈" if on else "關燈")
-
-    async def ble_send():
-        try:
-            async with BleakClient(BOT_MAC) as client:
-                cmd = bytearray([0x57, 0x01, 0x01 if on else 0x02])
-                await client.write_gatt_char(WRITE_CHAR_UUID, cmd)
-                print("✅ BLE 指令送出")
-        except Exception as e:
-            print("❌ BLE 控制失敗:", e)
-
-    threading.Thread(target=lambda: asyncio.run(ble_send()), daemon=True).start()
+    if on:
+        _ble.light_on()
+    else:
+        _ble.light_off()
+    time.sleep(1)
     speak("開燈。" if on else "關燈。", local=True)
 
 
@@ -166,7 +191,29 @@ def schedule_manager(mem):
             event_data.get("timeZone", "Asia/Taipei"),
         )
         speak(f"好，我幫你安排了 {event_data['summary']}。")
-
+def set_alarm():
+    if not has_internet():
+        print("No internet")
+        speak("網路好像有問題喔, 無法使用語音鬧鐘", local=True)
+        return
+    speak("請說明你想設定什麼鬧鐘", local=True)
+    from listen import record_speech
+    user_input = record_speech(6)
+    if not user_input:
+        speak("我聽不太懂你想安排什麼，再說一次好嗎？", local=True)
+        return
+    alarm = llm_parse.parse_alarm_request(user_input, datetime.now())
+    if not alarm:
+        speak("這個鬧鐘我不太懂耶，再說一次？", local=True)
+        return
+    events.append(alarm)
+    print(f"[ALARM ADDED] {alarm}")
+    msg = f"好的，鬧鐘已設定在 {alarm['time'].strftime('%H:%M')}。"
+    if alarm.get("tag") == "wake_up":
+        msg += " 到時我會幫你開燈。"
+    elif alarm.get("tag") == "sleep":
+        msg += " 我會幫你關燈。"
+    speak(msg)
 
 def do_power_on():
     print("[ACTION] Wake up PC")

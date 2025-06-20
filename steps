@@ -11,6 +11,7 @@ pip install pygame
 pip install webrtcvad
 pip install google-api-python-client
 pip install setuptools
+pip install wakeonlan
 sudo apt install ffmpeg //wsl
 sudo apt-get install apt-transport-https ca-certificates gnupg curl//Debian
 sudo apt install portaudio19-dev

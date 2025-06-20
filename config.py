@@ -16,6 +16,9 @@ MODEL_PATH = "models/vosk-model-small-en-us-0.15"
 
 # 語音指令對應表
 CMD_MAP = {
+    "hey alone": "set_alarm",
+    "hey along": "set_alarm",
+    "hey alarm": "set_alarm",
     "hey schedule": "schedule",
     "light up": "on_light",
     "light on": "on_light",
@@ -52,7 +55,7 @@ CMD_MAP = {
 # 語意與語音參數
 MAX_WORDS = 200
 MAX_TOKENS = 150
-THRESHOLD = 90
+THRESHOLD = 95
 LANG = "zh-TW"
 SEC_RECORD = 5
 MEMORY_PATH = "memory.json"
@@ -69,3 +72,8 @@ PASS = "Zxc9249258852xc"
 WEA_API = "CWA-9544C8F6-2267-4106-8246-78B0980BE9CB"
 location_name = "臺北市"
 target_area = "內湖區"
+
+#冷氣(LG)
+LG_ACCESS_TOKEN="thinqpat_24d733d65a20fa77df187687b811bbb28b721c7b9de15b68717a"
+COUNTRY_CODE="TW"
+LG_DEVICE_ID="c64f04826403e700b5544ef827312394e54f19ee73f0b378d7bf39f4d097d589"

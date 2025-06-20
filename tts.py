@@ -2,6 +2,16 @@ from elevenlabs.client import ElevenLabs
 from elevenlabs import play
 import os
 import hashlib
+import warnings
+
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
+
+warnings.filterwarnings(
+    "ignore",
+    message="pkg_resources is deprecated as an API.*",
+    category=UserWarning,
+    module="pygame.pkgdata",
+)
 import pygame
 import config
 
@@ -16,6 +26,8 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 
 
 def speak(text: str, mute: bool = False, local: bool = False):
+    if mute:
+        return None
     if local:
         h = hashlib.md5(text.encode("utf-8")).hexdigest()
         filepath = os.path.join(CACHE_DIR, f"{h}.mp3")
@@ -43,11 +55,9 @@ def speak(text: str, mute: bool = False, local: bool = False):
                 f.write(audio_data)
             print("聲音快取不存在正在下載")
             if not mute:
-                from pydub import AudioSegment
-                from pydub.playback import play as pplay
-
-                audio = AudioSegment.from_file(filepath)
-                pplay(audio)
+                pygame.mixer.init()
+                pygame.mixer.music.load(filepath)
+                pygame.mixer.music.play()
             return filepath
     else:
         speed = 1.2 if len(text) > 25 else 1.0
