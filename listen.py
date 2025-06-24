@@ -6,7 +6,7 @@ from rapidfuzz import fuzz
 from tts import speak
 from google.cloud import speech_v1 as speech
 import action, config
-
+import webrtcvad
 # ---------------- global ----------------
 DEVICE_ID   = config.DEVICE_ID
 SAMPLE_RATE = config.SAMPLE_RATE      
@@ -15,7 +15,7 @@ CMD_MAP     = config.CMD_MAP
 THRESHOLD   = config.THRESHOLD
 LANG        = config.LANG
 SEC_RECORD  = config.SEC_RECORD
-
+vad = webrtcvad.Vad(2) #voice threshold
 # ---- ① Vosk Model / Recognizer  ----
 SetLogLevel(-1)                          
 _VOSK_MODEL = Model(MODEL_PATH)
@@ -36,7 +36,9 @@ def hotword_listener(mem) -> int:
     def _cb(indata, frames, t, status):
         if status:
             print(status, file=sys.stderr)
-        q_audio.put(bytes(indata))
+        is_speech = vad.is_speech(bytes(indata[:320]), SAMPLE_RATE)
+        if is_speech:
+            q_audio.put(bytes(indata))
 
     sd.default.device = (DEVICE_ID, None)
     with sd.RawInputStream(
@@ -44,9 +46,9 @@ def hotword_listener(mem) -> int:
         samplerate=SAMPLE_RATE,
         dtype="int16",
         channels=1,
-        blocksize=8000,
+        blocksize=2048,
         callback=_cb,
-    ):
+    )as stream:
         while True:
             try:
                 data = q_audio.get(timeout=0.1)  
@@ -79,9 +81,11 @@ def hotword_listener(mem) -> int:
                 elif tag == "type_pass":
                     action.type_pass()
                 elif tag == "set_alarm":
+                    stream.close()
                     action.set_alarm()
                     return 0
                 elif tag == "schedule":
+                    stream.close()
                     action.schedule_manager(mem)
                     return 0
                 elif tag == "llm":
