@@ -16,6 +16,8 @@ THRESHOLD   = config.THRESHOLD
 LANG        = config.LANG
 SEC_RECORD  = config.SEC_RECORD
 vad = webrtcvad.Vad(2) #voice threshold
+FRAME_DURATION_MS = 10
+FRAME_LENGTH = int(SAMPLE_RATE * FRAME_DURATION_MS / 1000)
 # ---- ① Vosk Model / Recognizer  ----
 SetLogLevel(-1)                          
 _VOSK_MODEL = Model(MODEL_PATH)
@@ -36,9 +38,14 @@ def hotword_listener(mem) -> int:
     def _cb(indata, frames, t, status):
         if status:
             print(status, file=sys.stderr)
-        is_speech = vad.is_speech(bytes(indata[:320]), SAMPLE_RATE)
-        if is_speech:
-            q_audio.put(bytes(indata))
+        if len(indata) >= FRAME_LENGTH:
+            try:
+                frame = indata[:FRAME_LENGTH]         # 480 samples
+                raw_bytes = frame.tobytes()  
+                if vad.is_speech(raw_bytes, SAMPLE_RATE):
+                    q_audio.put(bytes(indata)) 
+            except Exception as e:
+                print("[VAD error]", e)
 
     sd.default.device = (DEVICE_ID, None)
     with sd.RawInputStream(
