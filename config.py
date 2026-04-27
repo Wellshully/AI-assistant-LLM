@@ -1,14 +1,14 @@
 # config.py
 PC_MAC = "04:7C:16:0C:E0:5D"
 # 語音與語音生成設定
-ELE_API = "sk_6aea8b24cef93bd18a8c965c8486e39d85076ee9c32661a1"
-VOICE_ID = "hkfHEbBvdQFNX4uWHqRF"
+ELE_API = ""
+VOICE_ID = ""
 MODEL_ID = "eleven_flash_v2_5"
 BASE_SETTINGS = {"stability": 0.95, "similarity_boost": 0.85, "speed": 1.0}
 CACHE_DIR = "tts_cache"
 
 # Gemini client 設定
-GEMINI_API = "AIzaSyDEwTDG5ul6RGCoVIamkn7FtCfm4XFOAX8"
+GEMINI_API = ""
 # 語音辨識與語音控制
 DEVICE_ID = 45
 SAMPLE_RATE = 48000
@@ -66,7 +66,7 @@ REMOTE_USER = "welly"
 REMOTE_HOST = "192.168.66.14"
 BOT_MAC = "EE:2E:05:86:36:8D"
 WRITE_CHAR_UUID = "cba20002-224d-11e6-9fb8-0002a5d5c51b"
-PASS = "Zxc9249258852xc"
+PASS = ""
 
 # 天氣
 WEA_API = "CWA-9544C8F6-2267-4106-8246-78B0980BE9CB"
@@ -74,6 +74,6 @@ location_name = "臺北市"
 target_area = "內湖區"
 
 #冷氣(LG)
-LG_ACCESS_TOKEN="thinqpat_24d733d65a20fa77df187687b811bbb28b721c7b9de15b68717a"
+LG_ACCESS_TOKEN=""
 COUNTRY_CODE="TW"
-LG_DEVICE_ID="c64f04826403e700b5544ef827312394e54f19ee73f0b378d7bf39f4d097d589"
+LG_DEVICE_ID=""
